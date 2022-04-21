@@ -15,6 +15,7 @@ class CreateDetailTransaksisTable extends Migration
     {
         Schema::create('detail_transaksis', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('id_user');
             $table->bigInteger('id_produk');
             $table->bigInteger('id_transaksi');
             $table->bigInteger('id_satuan');

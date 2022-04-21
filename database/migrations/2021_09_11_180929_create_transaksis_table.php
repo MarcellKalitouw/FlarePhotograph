@@ -16,12 +16,18 @@ class CreateTransaksisTable extends Migration
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_user');
+            $table->char('kode_transaksi', 155);
             $table->bigInteger('no_hp');
             $table->text('alamat');
+            $table->double('longitude');
+            $table->double('latitude');
             $table->dateTime('jam_booking');
-            $table->dateTime('jam_mulai');
-            $table->bigInteger('total_order');
-            $table->enum('status', ['konfirmasi_DP1', 'konfirmasi_DP2', 'selesai']);
+            $table->dateTime('tgl_booking');
+            $table->enum('bentuk_pembayaran', ['dp','lunas']);
+            $table->enum('status_transaksi', ['Diterima','Diproses','Selesai','Ditolak','Menunggu Konfirmasi','Menunggu Pembayaran','Menunggu Pembayaran Pertama','Menunggu Pelunasan']);
+            $table->double('biaya_tambahan');
+            $table->double('total_diskon');
+            $table->double('total_transaksi');
             $table->text('catatan');
             $table->timestamps();
             $table->softDeletes();

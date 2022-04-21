@@ -16,9 +16,17 @@ class CreateRiwayatPembayaransTable extends Migration
         Schema::create('riwayat_pembayarans', function (Blueprint $table) {
             $table->id();
             $table->integer('id_transaksi');
+            $table->integer('id_user');
             $table->enum('status', ['dp1','dp2','lunas']);
             $table->double('total_bayar');
             $table->double('total_lunas');
+            $table->text('bukti_transfer');
+            $table->integer('transfer_id');
+            $table->char('atasnama_pengirim', 255);
+            $table->char('bank_pengirim',255);
+            $table->date('tgl_transfer');
+            $table->text('catatan');
+            $table->char('kode_transaksi');
             $table->timestamps();
             $table->softDeletes();
 

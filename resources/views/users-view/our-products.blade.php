@@ -53,7 +53,7 @@
                                   <ul class="stars">
                                       <li><i class="fa fa-star"></i></li>
                                       <li><i class="fa fa-star"></i></li>
-                                      <li><i class="fa fa-star"></i></li>
+                                      <li><i class="fa fa-star"></i></li>`
                                       <li><i class="fa fa-star"></i></li>
                                       <li><i class="fa fa-star"></i></li>
                                   </ul>

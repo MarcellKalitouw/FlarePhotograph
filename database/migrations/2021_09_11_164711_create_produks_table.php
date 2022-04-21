@@ -19,8 +19,9 @@ class CreateProduksTable extends Migration
             $table->text('deskripsi');
             $table->text('kegiatan');
             $table->enum('status', ['tersedia', 'tidak_tersedia']);
-            $table->text('gambar');
             $table->enum('studio', ['true', 'false']);
+            $table->enum('isMultiple',['TRUE','FALSE']);
+            $table->enum('isVariant',['TRUE','FALSE']);
             $table->bigInteger('harga');
             $table->timestamps();
             $table->softDeletes();

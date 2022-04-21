@@ -20,6 +20,7 @@ class CreateBankTransfersTable extends Migration
             $table->char('nama_bank', 50);
             
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

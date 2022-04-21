@@ -16,8 +16,8 @@ class CreateSatuansTable extends Migration
         Schema::create('satuans', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('id_kp');
-            $table->string('nama_satuan', 100);
-            $table->timestamps();
+            $table->string('ama_satuan', 100);
+            $table->timestampns();
             $table->softDeletes();
         });
     }
