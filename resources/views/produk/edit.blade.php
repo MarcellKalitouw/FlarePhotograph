@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
+    <x-alert></x-alert>
     
     <!-- Basic Validation -->
     <div class="row clearfix">
@@ -104,7 +105,87 @@
             </div>
         </div>
     </div>
-    <!-- #END# Basic Validation -->
+
     
+    <!-- #END# Basic Validation -->
+    <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">
+                    <h2>
+                        TABEL VARIANT PRODUK
+                        <a  href="{{route('variant_produk.create', $getData->id)}}" class="btn btn-success waves-effect">Tambah Data</a >
+                    </h2>
+                    
+                </div>
+                <div class="body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped table-hover dataTable js-basic-example">
+                            <thead>
+                                <tr>
+                                        <th>Nomor</th>
+                                        <th>Opsi</th>
+                                        <th>Nama Variant</th>
+                                        <th>Harga</th>
+                                        <th>Deskripsi</th>
+                                        <th>Created at</th>
+                                        <th>Updated at</th>
+                                        <th>Deleted at</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                        <th>Nomor</th>
+                                        <th>Opsi</th>
+                                        <th>Nama Variant</th>
+                                        <th>Harga</th>
+                                        <th>Deskripsi</th>
+                                        <th>Created at</th>
+                                        <th>Updated at</th>
+                                        <th>Deleted at</th>
+                                        
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                <?php
+                                $no = 0;
+                                ?>
+                                @foreach ($getVariant as $item)
+
+                                <tr>
+                                    <td>{{$no+=1}}</td>  
+                                    <td>
+                                        <form action="{{route('variant_produk.destroy', [$getData->id, $item->id])}}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn bg-red waves-effect" onclick="return confirm('Are You sure?')">
+                                                <i class="material-icons">delete_forever</i>
+                                            </button>
+                                            <a href="{{route('variant_produk.edit', $item->id)}}" class="btn btn-warning waves-effect">
+                                                <i class="material-icons">create</i>
+                                            </a>
+            
+                                            </form>
+                                    </td>
+                                    <td>{{$item->nama_varian}}</td>  
+                                    <td>{{$item->harga}}</td>  
+                                    <td>{{$item->deskripsi}}</td>
+                                    <td>{{$item->created_at}}</td>
+                                    <td>{{$item->updated_at}}</td>
+                                    <td>{{$item->deleted_at}}</td>
+                                    
+                                    
+                                    </tr>
+                                    @endforeach
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
 @endsection

@@ -4,82 +4,68 @@ namespace App\Http\Controllers;
 
 use App\Models\VarianProduk;
 use Illuminate\Http\Request;
+use DB;
 
 class VarianProdukController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
         //
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    
+    public function formValidation($req){
+        $this->validate($req, [
+            'nama_varian' => 'required',
+            'id_produk' => 'required',
+            'deskripsi' => 'required',
+            'harga' => 'required',
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function create($id)
+    {
+        // dd($id);
+        return view('variant_produk.create', compact('id'));
+    }
+
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $this->formValidation($request);
+        
+
+        $input = $request->except(['_token']);
+        
+        $variant_produk = VarianProduk::create($input);
+        
+        return redirect()->route('produk.edit',$request->id_produk);
+        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\VarianProduk  $varianProduk
-     * @return \Illuminate\Http\Response
-     */
-    public function show(VarianProduk $varianProduk)
+    public function show($id)
+    {
+        //
+    }
+    
+    public function edit($id)
+    {
+        $getData = VarianProduk::where('id',$id)->first();
+        // dd($getData);
+        return view('variant_produk.edit', compact('getData'));
+    }
+
+    public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\VarianProduk  $varianProduk
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(VarianProduk $varianProduk)
+    public function destroy($id_produk,$id)
     {
-        //
-    }
+        VarianProduk::where('id',$id)->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\VarianProduk  $varianProduk
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, VarianProduk $varianProduk)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\VarianProduk  $varianProduk
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(VarianProduk $varianProduk)
-    {
-        //
+        
+        return redirect()->route('produk.edit',$id_produk);
     }
 }

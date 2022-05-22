@@ -17,7 +17,8 @@ use App\Http\Controllers\{
      RegisterController,
      LokasiTersediaController,
      BankTransferController,
-     ProfileUsahaController
+     ProfileUsahaController,
+     VarianProdukController
     };
 use App\Http\Middleware\CheckStatus;
 
@@ -54,7 +55,12 @@ Route::middleware(['checkStatus'])->group(function () {
     Route::resource('bank_transfer', BankTransferController::class);
 
     Route::resource('profile_usaha', ProfileUsahaController::class);
-    
+
+    Route::resource('variant_produk', VarianProdukController::class)->except([
+        'create','show','destroy'
+    ]);
+    Route::get('variant_produk/{id}', [VarianProdukController::class, 'create'])->name('variant_produk.create');
+    Route::delete('variant_produk/{id_produk}/${id}/destroy', [VarianProdukController::class, 'destroy'])->name('variant_produk.destroy');
 });
 
 

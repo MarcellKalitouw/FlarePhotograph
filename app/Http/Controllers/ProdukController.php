@@ -108,10 +108,11 @@ class ProdukController extends Controller
     public function edit($id)
     {
         // $this->cekUser();
+        $getVariant = DB::table('varian_produks')->where('id_produk', $id)->whereNull('deleted_at')->get();
 
         $getData = DB::table ('produks')->where('id', $id)->first();
 
-        return view('produk.edit', compact('getData'));
+        return view('produk.edit', compact('getData','getVariant'));
     }
 
     
