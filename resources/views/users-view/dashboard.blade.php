@@ -186,11 +186,12 @@
                 <li><a href="#">Corporis, omnis doloremque</a></li>
                 <li><a href="#">Non cum id reprehenderit</a></li>
               </ul>
-              <a href="about.html" class="filled-button">Read More</a>
+              {{-- <a href="about.html" class="filled-button">Read More</a> --}}
             </div>
           </div>
           <div class="col-md-6">
             <div class="right-image">
+              
               <img src="{{asset ('template_users/assets/images/feature-image.jpg') }}" alt="">
             </div>
           </div>
@@ -204,7 +205,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="inner-content">
-              <div class="row">
+              {{-- <div class="row">
                 <div class="col-md-8">
                   <h4>Creative &amp; Unique <em>Sixteen</em> Products</h4>
                   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque corporis amet elite author nulla.</p>
@@ -212,7 +213,11 @@
                 <div class="col-md-4">
                   <a href="#" class="filled-button">Purchase Now</a>
                 </div>
-              </div>
+              </div> --}}
+              <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d316.21287031797937!2d124.8736389407102!3d1.2751487703097817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32871525f83e8d8f%3A0x78c21542aef7e3e8!2sCafe%20Houseofloopar!5e0!3m2!1sen!2sid!4v1658674379963!5m2!1sen!2sid"
+                                                width="100%" height="350" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
         </div>
@@ -224,11 +229,11 @@
       <div class="container">
       <div class="row">
           <div class="col-md-12">
-          <div class="inner-content">
-              <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
-          
-          - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
-          </div>
+            <div class="inner-content">
+                <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
+            
+            - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+            </div>
           </div>
       </div>
       </div>
