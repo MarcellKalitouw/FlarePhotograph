@@ -11,7 +11,13 @@ class NotifikasiController extends Controller
     
     public function index()
     {
-        $data = DB::table('notifikasis')->get();
+        $data = DB::table('notifikasis')
+                ->leftJoin('transaksis','transaksis.id','notifikasis.id_transaksi')
+                ->select('notifikasis.*','transaksis.kode_transaksi as kode_transaksi')
+                ->whereNull('notifikasis.deleted_at')
+                ->orderBy('created_at','desc')
+                ->get();
+
         // dd($data);
         return view('notifikasi.index', compact('data'));
     }
@@ -27,9 +33,8 @@ class NotifikasiController extends Controller
     {
          //dd($request);
          $validate = $this->validate($request, [
-            'total_bayar' => 'required',
-            'metode_pembayaran' => 'required',
-            'id_dt' => 'required',
+            'status_notifikasi' => 'required',
+            'keterangan' => 'required',
             'id_transaksi' => 'required'
         ]);
 
@@ -60,9 +65,8 @@ class NotifikasiController extends Controller
     public function update(Request $request, $id)
     {
         $validate = $this->validate($request, [
-            'total_bayar' => 'required',
-            'metode_pembayaran' => 'required',
-            'id_dt' => 'required',
+            'status_notifikasi' => 'required',
+            'keterangan' => 'required',
             'id_transaksi' => 'required'
         ]);
 

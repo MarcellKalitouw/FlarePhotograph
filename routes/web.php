@@ -64,6 +64,7 @@ Route::middleware(['checkStatus'])->group(function () {
 });
 
 
+// Start middle Universe
 Route::resource('users', UsersController::class);
 
 Route::get('tambah_admin', [UsersController::class, 'createAdmin'])->name('create.admin');
@@ -79,6 +80,25 @@ Route::post('register/pengguna/store', [RegisterController::class, 'store'])->na
 Route::resource('landingPage', HomeController::class);
 Route::get('ourProduct', [HomeController::class, 'AllProduct'])->name('users-view.ourproduct');
 Route::get('detailProduct/{id}', [HomeController::class, 'detailProduk'])->name('users-view.detailproduct');
+
+Route::get('send-mail', function () {
+   
+    $details = [
+        'title' => 'Mail from FlarePhotograph.com',
+        'body' => 'This is for testing email using smtp'
+    ];
+   
+    \Mail::to('omegasyaloom@gmail.com')->send(new \App\Mail\NotificationMail($details));
+   
+    dd("Email is Sent.");
+});
+
+
+Route::get('email_sent/{id}',[HomeController::class, 'sendEmail'])->name('sent-email-transaction');
+
+// Route::get('send-mail', [TransaksiController::class, ''])
+
+//End Middle Universe
 
 Route::middleware(['isPengguna'])->group(function () {
     //Cart

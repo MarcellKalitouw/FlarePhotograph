@@ -74,17 +74,19 @@
                                         <ul>
                                             <li >
                                                 <div style="display: flex;">
-                                                    <strong>Warna</strong> : {{ $item->warna->nama_warna }}
-                                                    <div class="warna" style="background-color: {{ $item->warna->heksa_warna }};height:25px;width:25px;margin-left:10px;cursor:pointer;">
+                                                    <strong>Warna</strong> : {{ $item->warna ? $item->warna->nama_warna : "-"}}
+                                                    <div class="warna" style="background-color: {{ $item->warna ? $item->warna->heksa_warna : "-"}};height:25px;width:25px;margin-left:10px;cursor:pointer;">
                                                     
                                                     </div>
                                                 </div>
-                                                
                                             </li>
                                             <li><strong>Kegiatan</strong> : Rp.{{$item->kegiatan}}</li>
                                             <li><strong>Studio</strong> : Rp.{{$item->kegiatan == 'true' ? 'Ya' : 'Tidak'}}</li>
                                             <li><strong>Diskon</strong> : Rp.{{number_format($item->diskon)}}</li>
-                                            <li><strong>Harga</strong> : Rp.{{number_format($item->harga)}}</li>
+                                            <li><strong>Varian Produk</strong> : {{$item->nama_varian ? $item->nama_varian : "-"}}</li>
+                                            <li><strong>Harga Varian</strong> : Rp.{{$item->harga_varian ? number_format($item->harga_varian) : "-"}}</li>
+                                            <li><strong>Harga Pokok</strong> : Rp.{{number_format($item->harga)}}</li>
+                                            <li><strong>Total </strong> : Rp.{{number_format($item->total)}}</li>
                                             
                                         </ul>
                                     </div>
@@ -121,7 +123,7 @@
                                         </li>
                                         <li>
                                             <a class="js-sweetalert">
-                                                <?php $menunggupembayaran='Menunggu Pembayaran'?>
+                                                <?php $menunggupembayaran='Menunggu Pembayaran Pertama'?>
                                                 <button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" > 
                                                     Menunggu Pembayaran
                                                 </button>
@@ -263,13 +265,14 @@
 
                     </div>
                     
-                   
+                  
                     
                 </div>
             </div>
         </div>
 </div>
 @endsection
+
 @push('script')
     <script>
             $(function () {
@@ -296,10 +299,8 @@
                         
                     });
                 });
-
                 //These codes takes from http://t4t5.github.io/sweetalert/
                 
-
                 function statusDiterimaDialog() {
                     swal({
                         title: `Apakah anda yakin mengganti status laporan ini ke Status Transaksi telah 'Diterima'`,
@@ -313,13 +314,12 @@
                             swal("Pergantian Status Transaksi sedang diproses");
                             document.location.href = `{{route('transaksi.update-status',['id' => $getTransaksi->id, 'status'=>$diterima])}}`;
                             
-
                         }, 3000);
                     });
                 }
                 function statusMenungguPembayaran() {
                     swal({
-                        title: `Apakah anda yakin mengganti status laporan ini ke Status Transaksi 'Menunggu Pembayaran' `,
+                        title: `Apakah anda yakin mengganti status laporan ini ke Status Transaksi 'Menunggu Pembayaran Pertama' `,
                         text: "Jika ya, klik tombol OK",
                         type: "info",
                         showCancelButton: true,
@@ -329,10 +329,7 @@
                         setTimeout(function () {
                             swal("Pergantian Status Transaksi sedang diproses");
                             document.location.href = `{{route('transaksi.update-status',['id' => $getTransaksi->id, 'status'=>$menunggupembayaran])}}`;
-
-
                         }, 3000);
-
                     });
                 }
                 function statusMenungguPelunasan() {
@@ -348,9 +345,7 @@
                             swal("Pergantian Status Transaksi sedang diproses");
                             document.location.href = `{{route('transaksi.update-status',['id' => $getTransaksi->id, 'status'=>$menunggupelunasan])}}`;
                            
-
                         }, 3000);
-
                     });
                 }
                 function statusDiprosesDialog() {
@@ -366,7 +361,6 @@
                             swal("Pergantian Status Transaksi sedang diproses");
                             document.location.href = `{{route('transaksi.update-status',['id' => $getTransaksi->id, 'status'=>$diproses])}}`;
                             
-
                         }, 3000);
                     });
                 }
@@ -383,7 +377,6 @@
                             swal("Pergantian Status Transaksi sedang diproses");
                             document.location.href = `{{route('transaksi.update-status',['id' => $getTransaksi->id, 'status'=>$sls])}}`;
                             
-
                         }, 3000);
                     });
                 }
@@ -400,7 +393,6 @@
                             swal("Pergantian Status Transaksi sedang diproses");
                             document.location.href = `{{route('transaksi.update-status',['id' => $getTransaksi->id, 'status'=>$dtlk])}}`;
                             
-
                         }, 3000);
                     });
                 }

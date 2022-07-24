@@ -59,37 +59,31 @@
                                 
                             </div>
                         </div>
-                        <div class="form-group form-float">
-                            <label class="form-label">jam Mulai</label>
-                            <div class="form-line">
-                                <input type="date" class="form-control" name="jam_mulai" required="" aria-required="true" value="{{$getData->jam_mulai}}">
-                                
-                            </div>
-                        </div>
+                       
                         <div class="form-group form-float">
                             <div class="form-line">
-                                <input type="text" class="form-control" name="total_order" required="" aria-required="true" value="{{$getData->total_order}}">
-                                <label class="form-label">Total Pesanan</label>
+                                <input type="text" class="form-control" name="total_transaksi" required="" aria-required="true" value="{{$getData->total_transaksi}}">
+                                <label class="form-label">Total Transaksi</label>
                             </div>
                         </div>
                         {{-- <div class="form-group form-float">  
                             <div class="form-line">
-                                <input type="text" class="form-control" name="status" required="" aria-required="true" value="{{$getData->status}}">
-                                <label class="form-label">Status</label>
+                                <input type="text" class="form-control" name="status_transaksi" required="" aria-required="true" value="{{$getData->status_transaksi}}">
+                                <label class="form-label">Status_transaksi</label>
                             </div>
                         </div> --}}
                         <div class="form-group form-float"> 
-                            <label class="form-label">Status</label>
+                            <label class="form-label">Status_transaksi</label>
                             <div class="form-line">
-                                <select name="status" class="form-control show-tick">
+                                <select name="status_transaksi" class="form-control show-tick">
                                     <option value="">-- Please select --</option>
                                     {{!! $selected='selected'; !!}}
-                                    @if ($getData->status == 'Konfirmasi DP 1')
+                                    @if ($getData->status_transaksi == 'Konfirmasi DP 1')
                                         <option {{$selected}} value="Konfirmasi DP 1">Konfirmasi DP 1</option>
                                         <option value="Konfirmasi DP 2">Konfirmasi DP 2</option>
                                         <option value="Selesai">Selesai</option>
 
-                                    @elseif ($getData->status == 'Konfirmasi DP 2')
+                                    @elseif ($getData->status_transaksi == 'Konfirmasi DP 2')
                                         <option value="Konfirmasi DP 1">Konfirmasi DP 1</option>
                                         <option {{$selected}} value="Konfirmasi DP 2">Konfirmasi DP 2</option>
                                         <option value="Selesai">Selesai</option>

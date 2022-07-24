@@ -68,7 +68,8 @@
                                     <i class="material-icons">create</i>
                                 </a>
 
-                            </form></td>
+                            </form>
+                            </td>
                                <td>{{$item->id_produk}}</td>  
                                <td>{{$item->id_dt}}</td>
                                <td>{{$item->id_transaksi}}</td>

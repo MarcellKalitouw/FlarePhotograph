@@ -53,13 +53,13 @@
                                 <a href="{{route('kategori_produk.index')}}">Kategori Produk</a>
                              </li>
 
-                             <li>
+                             {{-- <li>
                                 <a href="{{route('satuan_produk.index')}}">Satuan Produk</a>
                              </li>
 
                              <li>
                                 <a href="{{route('satuan.index')}}">Satuan</a>
-                             </li>
+                             </li> --}}
 
                              <li>
                                 <a href="{{route('warna.index')}}">Warna Produk</a>

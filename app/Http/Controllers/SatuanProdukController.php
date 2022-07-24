@@ -61,6 +61,8 @@ class SatuanProdukController extends Controller
             'id_satuan' => 'required'
         ]);
 
+        
+
         //dd($validate);
 
         $input = $request->except(['_token']);

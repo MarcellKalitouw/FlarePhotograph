@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\KategoriProduk;
 use App\Models\LokasiTersedia;
 use App\Models\Transaksi;
-use App\Models\{DetailTransaksi, RiwayatTransaksi, RiwayatPembayaran};
+use App\Models\{DetailTransaksi, RiwayatTransaksi, RiwayatPembayaran, Notifikasi, BankTransfer};
 use DB;
 class HomeController extends Controller
 {
@@ -20,8 +20,9 @@ class HomeController extends Controller
 
         // dd($kp);
         return view('users-view.dashboard', compact('kp'));
-
     }
+
+    
     protected function getGambarByKategoriProduk($data){
         foreach($data as $key){
             // dd($key);
@@ -77,19 +78,28 @@ class HomeController extends Controller
         // dd($data);
         
     }
+    
 
     public function detailProduk($id){
         $produk = DB::table('produks')->find($id);
         $getWarna = DB::table('warnas')
                     ->where('id_produk', $id)
                     ->where('status','=','Tersedia')->get();
+
+        $getVariant = DB::table('varian_produks')
+                      ->where('id_produk', $id)
+                      ->whereNull('deleted_at')
+                      ->get();
+
+        // dd($getVariant);
+                      
         // dd(count($getWarna) == 0);
 
         $this->getGambarByIdProduk($produk);
         // dd($produk);
 
 
-        return view('users-view.detail-product', compact('produk','getWarna'));
+        return view('users-view.detail-product', compact('produk','getWarna', 'getVariant'));
         
     }
     // public function messages()
@@ -111,11 +121,12 @@ class HomeController extends Controller
                             ->get();
         
         $this->getGambarProdukById($getOrderProduct);
-        
+        $this->getVarianProdukById($getOrderProduct);
         $this->getWarnaProductOrder($getOrderProduct);
         $this->getAllWarna($getOrderProduct);
+        
+        // dd($getOrderProduct[0]->varian_produk->nama_varian);
         // dd($getOrderProduct);
-
         return view('users-view.cart', compact('getOrderProduct'));
     }
     public function getAllWarna($data){
@@ -142,9 +153,24 @@ class HomeController extends Controller
 
         $getProdukOrder = DB::table('produks')->where('id', $id)->first();
         $quantiti = 1;
-        
-        $cekWarna = DB::table('warnas')->where('id_produk', $id)->get();    
+        $getHargaVariant = DB::table('varian_produks')->where('id', $r->id_varian)->value('harga');
+        // dd($getHargaVariant);
+        $cekWarna = DB::table('warnas')->where('id_produk', $id)->get(); 
+
+        $cekVarian = DB::table('varian_produks')->where('id_produk', $id)->get();
+        // dd(count($cekVarian) != 0);
+        if(count($cekVarian) != 0){
+            $validateCekVarian = $this->validate($r, [
+                'id_varian' => 'required'
+            ],
+            [
+                'id_varian.required' => 'Pilih Varian Produk terlebih dahulu'
+            ]);
+        }
+
         // dd(count($cekWarna));
+        
+
         if(count($cekWarna) > 0){
 
             $validate = $this->validate($r, [
@@ -158,20 +184,22 @@ class HomeController extends Controller
             $createDetailTransaksi = DB::table('detail_transaksis')->insert([
                 'id_user' => $getUser->id,
                 'id_produk' => $getProdukOrder->id,
+                'id_varian' => $r->id_varian,
                 'id_warna' => $idWarna,
                 'harga' => $getProdukOrder->harga,
                 'qty' => 1,
                 'diskon' => 0,
-                'total' => $getProdukOrder->harga * $quantiti
+                'total' => ($getProdukOrder->harga * $quantiti) + $getHargaVariant
             ]);
         }else{
             $createDetailTransaksi = DB::table('detail_transaksis')->insert([
                 'id_user' => $getUser->id,
                 'id_produk' => $getProdukOrder->id,
                 'harga' => $getProdukOrder->harga,
+                'id_varian' => $r->id_varian,
                 'qty' => 1,
                 'diskon' => 0,
-                'total' => $getProdukOrder->harga * $quantiti
+                'total' => ($getProdukOrder->harga * $quantiti) + $getHargaVariant
             ]);
         }
         // Creat Detail Transaksi
@@ -192,9 +220,16 @@ class HomeController extends Controller
         // $getAllDetailTransaksi = DB::table('detail_transaksis')->where('id_user', $getUser->id)->get();
         $getDetailTransactionWithProduk =  DB::table('detail_transaksis')
                                             ->leftJoin('produks','produks.id','detail_transaksis.id_produk')
+                                            ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
                                             ->where('id_user', $getUser->id)
                                             ->where('detail_transaksis.status', 'Dalam Keranjang')
-                                            ->select('detail_transaksis.*','produks.nama_produk AS nama_produk','produks.status AS status')
+                                            ->select(
+                                                        'detail_transaksis.*',
+                                                        'produks.nama_produk AS nama_produk',
+                                                        'produks.status AS status',
+                                                        'varian_produks.nama_varian as nama_varian',
+                                                        'varian_produks.harga as harga_varian'
+                                                    )
                                             ->get();
         
         $this->getGambarProdukById($getDetailTransactionWithProduk);
@@ -284,27 +319,74 @@ class HomeController extends Controller
             //     'id_user' => $getUser->id,
             //     'status' => $transaksi->status_transaksi
             // ]);
-            $statusTransaksi = RiwayatTransaksi::insert([
+
+            
+            
+            $statusTransaksi = RiwayatTransaksi::create([
                 'id_transaksi' =>$transaksi->id,
                 'id_user' => $getUser->id,
                 'status' => $transaksi->status_transaksi
             ]);
+
+            $notifikasi = Notifikasi::create([
+                'id_transaksi' => $transaksi->id,
+                'keterangan' => "Transaksi Baru",
+                'status_notifikasi' => 'Baru'
+            ]);
+
+            
+            
             DB::commit();
-            return redirect()->route('users-view.history-transaction');
+
+            // $this->sendEmail($id);
+            // return redirect()->route('users-view.history-transaction');
+            return redirect()->route('sent-email-transaction', $transaksi->id );
         } catch (\Exception $e) {
             DB::rollback();
             dd($e);
         }
     }
-    
-    public function addTotalDp($data){
-        foreach ($data as $item ) {
-            $item->total_dp1 = $item->total_transaksi / 2;
-            $item->total_pelunasan = $item->total_transaksi - $item->total_dp1;
-        }
+    public function getRiwayatTransaksi($data, $userId){
+        $getRiwayatTransaksi = DB::table('riwayat_transaksis')
+                                ->where('id_transaksi', $data->id)
+                                ->where('id_user', $userId)
+                                ->get();
+        $item['riwayat_transaksi'] = $getRiwayatTransaksi;
     }
+    public function getAllDetailHistroyTransaction($data){
+        $getDetailTransaksi = DB::table('detail_transaksis')
+                                ->leftJoin('produks', 'produks.id', 'detail_transaksis.id_produk')
+                                ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
+                                ->where('detail_transaksis.id_transaksi', $data->id)
+                                ->where('detail_transaksis.status', '!=', 'Dalam Keranjang')
+                                ->select(
+                                    'detail_transaksis.*','produks.*',
+                                    'detail_transaksis.status AS status_detail',
+                                    'varian_produks.nama_varian AS nama_varian',
+                                    'varian_produks.harga AS harga_varian'
+                                )
+                                ->get();
+            $this->getGambarProdukById($getDetailTransaksi);
+            $this->getWarnaProductOrder($getDetailTransaksi);
+            
+            $data['detail_transaksi'] = $getDetailTransaksi;
+    }
+
+    public function sendEmail ($id){
+        // dd($id);
+        $getTransaksi = Transaksi::find($id);
+            $this->getRiwayatTransaksi($getTransaksi, $getTransaksi->id_user);
+            $this->getAllDetailHistroyTransaction($getTransaksi);
+            
+            \Mail::to('omegasyaloom@gmail.com')->send(new \App\Mail\NotificationMail($getTransaksi));
+        return redirect()->route('users-view.history-transaction');
+    }
+    
+   
     public function getAllRiwayatTransaksi($data, $userId){
+        // dd($data, $userId);
         foreach ($data as $item ) {
+            // dd($item->id);
             $getRiwayatTransaksi = DB::table('riwayat_transaksis')
                                     ->where('id_transaksi', $item->id)
                                     ->where('id_user', $userId)
@@ -312,12 +394,18 @@ class HomeController extends Controller
             $item->riwayat_transaksi = $getRiwayatTransaksi;
         }
     }
+    public function getVarianProdukById($data) {
+        foreach($data as $key){
+            $varian_produks = DB::table('varian_produks')->where('id', $key->id_varian)->select('nama_varian','harga')->first();
+            // dd($varian_produks);
+            $key->varian_produk = $varian_produks;
+        }
+    }
     public function getGambarProdukById($data) {
         foreach($data as $key){
             $gambarProduk = DB::table('gambar_produks')->where('id_produk', $key->id_produk)->get();
             $fileProduk = $gambarProduk;
             $key->gambar_produk = $fileProduk;
-            
         }
     }
     public function getWarnaProductOrder($data){
@@ -359,19 +447,55 @@ class HomeController extends Controller
         //Get History Transaction
         $allTransaksi = Transaksi::where('id_user', session()->get('id_user'))->orderByDesc('id')->get();
         
+        $bankTransfer = BankTransfer::all();
+        // dd($bankTransafer);
+
         // $allTransaksi = DB::table('transaksis')
         //                 ->leftJoin('riwayat_transaksis','riwayat_transaksis.id_transaksi', 'transaksis.id')
         //                 ->whereNull('transaksis.deleted_at')
         //                 ->get(); 
         $this->getAllRiwayatTransaksi($allTransaksi, $getUser->id);
+        $this->getDetailHistoryTransaction($allTransaksi);
         $this->addTotalDp($allTransaksi);
         // dd($allTransaksi);
-        
 
-        
-        return view('users-view.history-transaksi', compact('getUser','allTransaksi'));
+
+        return view('users-view.history-transaksi', compact('getUser','allTransaksi','bankTransfer'));
         
     }
+     public function addTotalDp($data){
+        foreach ($data as $item ) {
+            if($item->bentuk_pembayaran =="dp"){
+                $item->total_dp1 = $item->total_transaksi / 2;
+                $item->total_pelunasan = $item->total_transaksi - $item->total_dp1;
+            }else{
+                $item->total_dp1 = 0;
+                $item->total_pelunasan = $item->total_transaksi;
+            }
+        }
+    }
+    public function getDetailHistoryTransaction($data){
+        foreach ($data as $item ) {
+            $getDetailTransaksi = DB::table('detail_transaksis')
+                                ->leftJoin('produks', 'produks.id', 'detail_transaksis.id_produk')
+                                ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
+                                ->where('detail_transaksis.id_transaksi', $item->id)
+                                ->where('detail_transaksis.status', '!=', 'Dalam Keranjang')
+                                ->select(
+                                    'detail_transaksis.*','produks.*',
+                                    'detail_transaksis.status AS status_detail',
+                                    'varian_produks.nama_varian AS nama_varian',
+                                    'varian_produks.harga AS harga_varian'
+                                )
+                                ->get();
+            $this->getGambarProdukById($getDetailTransaksi);
+            $this->getWarnaProductOrder($getDetailTransaksi);
+            
+            $item->detail_transaksi = $getDetailTransaksi;
+            
+        }
+    }
+
     public function confirmationPayment(Request $request, $id){
         // dd($id, $request);
         $validate = $this->validate($request, [
@@ -390,12 +514,23 @@ class HomeController extends Controller
         ]);
         
         $input = $request->except(['_token']);
-        // dd($input);
+        // dd($input['status']);
         if($request->hasfile('bukti_transfer')){
             $fileName = time().'_'.$input['bukti_transfer']->getClientOriginalName();
             $input['bukti_transfer']->move(public_path('bukti_transaksi'), $fileName);
             $input['bukti_transfer'] = $fileName;
         }
+        if($input['status'] == 'dp1'){
+            $status = 'Konfirmasi Pembayaran DP Pertama';
+        }else{
+            $status = 'Konfirmasi Pelunasan';
+        }
+
+        $notifikasi = Notifikasi::create([
+                'id_transaksi' => $request->id_transaksi,
+                'keterangan' => $status,
+                'status_notifikasi' => "Baru"
+            ]);
 
         $riwayatPembayaran = RiwayatPembayaran::create($input);
         return redirect()->route('users-view.history-transaction')->with('success','Your Payment Confirmation <strong> "'.$input['kode_transaksi'].'" </strong> has been saved!!');

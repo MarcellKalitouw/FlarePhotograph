@@ -102,11 +102,30 @@
           <div class="col-md-6">
             <div class="left-content">
               <h4>{{ $produk->nama_produk }}</h4>
-              
               <p><b>Kegiatan : </b> {{ $produk->kegiatan }}</p>
               <p><b>Studio : </b> {{ $produk->studio }}</p>
               <p><b>Status : </b> {{ $produk->status }}</p>
               <p><b>Deskripsi : </b> {{ $produk->deskripsi }}</p>
+              <div  style="display: flex;">
+                <p>Variant Produk : </p> 
+                @if (count($getVariant) != 0)
+                    <div class="varian-tersedia" style="margin-left: 2%">
+                      <select name="id_varian" id="id_varian" class="form-control" onchange="handleChangeVariant()">
+                        <option value="">Pilih Variant Produk</option>
+                      @forelse ($getVariant as $item)
+                          <option value="{{ $item->id }}">{{ $item->nama_varian }} - Rp.{{ number_format($item->harga)  }}</option>
+                        
+                      @empty
+                        <option value="" selected disabled>Tidak ada variant</option>  
+                      @endforelse
+                      </select>
+                      
+                    </div>
+                @else
+                    -
+                @endif
+              </div>
+
               <p ><b>Warna : </b> 
                 @if (count($getWarna) != 0)
                     <div class="warna-tersedia" style="display: flex;">
@@ -125,11 +144,14 @@
                 @endif
 
                 
-                </p>
+              </p>
+
+
               <form action="{{ route('users-view.insert-cart', $produk->id) }}" method="post">
                 @csrf
                 <input type="hidden" name="heksa_warna" id="heksa_warna" value="">
                 <input type="hidden" name="id_warna" id="id_warna" value="">
+                <input type="hidden" id="value_varian" name="id_varian" value="">
                 <button type="submit" class="order-now" style="cursor: pointer">Order Now</button>
                 {{-- <button type="button" onclick="makeOrderProduct({{ $produk->id }})" class="order-now" style="cursor: pointer">Order Now</button> --}}
               </form>
@@ -313,13 +335,29 @@
           let url = baseUrl + `/insertUserCart/${id}`;
           let getValueWarna =  $("#heksa_warna").val();
           let getIdWarna = $("#id_warna").val();
-          $.post(url, {
-            'id_warna' : `${getIdWarna}`
-          }, function(data){
-            
-            location.reload();
-          });
+          
 
+          if(getValueWarna !== '' && getIdWarna !== ''){
+            $.post(url, {
+              'id_warna' : `${getIdWarna}`
+            }, function(data){
+              
+              location.reload();
+            });
+          }
+          
+          
+
+        }
+        function handleChangeVariant()  {
+          let getIdVarian = document.getElementById('id_varian');
+          let valueVarian = document.getElementById('value_varian');
+				  let optionVarian = getIdVarian.options[getIdVarian.selectedIndex].value;
+
+          if(optionVarian !== ''){
+            valueVarian.value = optionVarian;
+          // console.log('getVV', optionVarian, valueVarian);
+          }
         }
         function handleCheckListItem(itemWarna, idWarna){
             let warna = itemWarna;

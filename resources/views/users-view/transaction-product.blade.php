@@ -160,7 +160,7 @@
             @endif 
 
           </div>
-          <div class="col-md-7">
+          <div class="col-md-6">
             <div class="contact-form">
               
                 <div class="row">
@@ -247,7 +247,7 @@
               
             </div>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-6">
             <h4>Keranjang Belanja</h4>
             <ul class="">
               @foreach ($getDetailTransactionWithProduk as $item)
@@ -258,9 +258,13 @@
                         <div id="detail-produk" style="display:flex; justify-content:space-between;">
                           <div class="gambar_produk" style="margin-right: 30px;margin-bottom:10px">
                               <img src="{{asset('storage/'. $item->gambar_produk[0]->file)  }}" width="auto" height="100px" alt="" srcset="" >
-                              <div class="btn-option" style="display: flex;margin-top:5px;">
+                              <div class="btn-option" style="margin-top:8px;">
 
-                                <a type="button" onclick="handleDeleteProduk({{ $item->id }})"  onclick=""  class="btn btn-danger" style="margin-right: 10px;color:white;">Hapus Produk<i class="material-icons">delete</i></a>
+                                <a type="button" onclick="handleDeleteProduk({{ $item->id }})"  onclick=""  class="btn btn-danger" 
+                                style="margin-right: 10px;color:white;display: flex;">
+                                    <i class="material-icons">delete</i>
+                                    Hapus Produk
+                                </a>
                                 {{-- <a type="button" onclick="editDetailProduk({{ $item->id }} )"  class="btn btn-warning" style="color:white;"><i class="material-icons">edit</i></a> --}}
                               </div>
                           </div>
@@ -311,7 +315,7 @@
                                       @endforeach
                                     </div>
                                 @else
-                                    -
+                                    Warna : -
                                 @endif
                                 {{-- <div class="select" tabindex="{{$item->id_warna  }}">
                                   @foreach ($cekWarna as $c)
@@ -329,6 +333,8 @@
                                 
                               </li>
                               <li class="list-item">Status : {{ $item->status }}</li>
+                              <li class="list-item">Varian Produk : {{ $item->nama_varian ? $item->nama_varian : "-" }}</li>
+                              <li class="list-item">Harga Varian : {{ $item->harga_varian ? number_format($item->harga_varian) : "-" }}</li>
                               <li class="list-item">harga : Rp. {{number_format($item->harga, 0)  }}</li>
                               <li class="list-item">Qty  : {{ $item->qty }}</li>
                               <li class="list-item">Diskon  : Rp. {{number_format($item->diskon, 0) }}</li>

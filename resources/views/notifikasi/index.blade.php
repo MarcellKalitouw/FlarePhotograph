@@ -19,10 +19,9 @@
                            <tr>
                                <th>Nomor</th>
                                <th>Opsi</th>
-                               <th>Total Bayar</th>
-                               <th>Metode Pembayaran</th>
-                               <th>Detail Transaksi</th>
-                               <th>Transaksi</th>
+                               <th>Kode Transaksi</th>
+                               <th>Keterangan</th>
+                               <th>Status Notifikasi</th>
                                <th>Created at</th>
                                <th>Updated at</th>
                                <th>Deleted at</th>
@@ -34,16 +33,12 @@
                            <tr>
                             <th>Nomor</th>
                             <th>Opsi</th>
-                            <th>Total Bayar</th>
-                            <th>Metode Pembayaran</th>
-                            <th>Detail Transaksi</th>
-                            <th>Transaksi</th>
+                            <th>Kode Transaksi</th>
+                            <th>Keterangan</th>
+                            <th>Status Notifikasi</th>
                             <th>Created at</th>
                             <th>Updated at</th>
-                            <th>Deleted at</th>
-
-                               
-                           </tr>
+                            <th>Deleted at</th>                           </tr>
                        </tfoot>
                        <tbody>
                            <?php
@@ -66,10 +61,9 @@
 
                                     </form>
                                 </td>
-                               <td>{{$item->total_bayar}}</td>  
-                               <td>{{$item->metode_pembayaran}}</td>
-                               <td>{{$item->id_dt}}</td> 
-                               <td>{{$item->id_transaksi}}</td>
+                               <td>{{$item->kode_transaksi}}</td>  
+                               <td>{{$item->keterangan}}</td>
+                               <td>{{$item->status_notifikasi}}</td>
                                <td>{{$item->created_at}}</td>
                                <td>{{$item->updated_at}}</td>
                                <td>{{$item->deleted_at}}</td>

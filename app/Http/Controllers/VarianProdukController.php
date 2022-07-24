@@ -52,13 +52,20 @@ class VarianProdukController extends Controller
     public function edit($id)
     {
         $getData = VarianProduk::where('id',$id)->first();
+        
         // dd($getData);
         return view('variant_produk.edit', compact('getData'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        
+        $this->formValidation($request);
+
+        $input = $request->except(['_token', '_method']);
+        $variant = VarianProduk::where('id', $id)->update($input);
+        return redirect()->route('produk.edit', $request->id_produk);
+        
     }
 
     public function destroy($id_produk,$id)

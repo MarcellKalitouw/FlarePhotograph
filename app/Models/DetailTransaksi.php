@@ -12,8 +12,11 @@ class DetailTransaksi extends Model
     public $timestamps = true;
     protected $fillable = [
         'id_produk',
-        'nama_produk',
         'id_transaksi',
+        'id_varian',
+        'id_user',
+        'id_warna',
+        'nama_produk',
         'harga',
         'total',
         'kode_verifikasi'

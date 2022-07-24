@@ -12,9 +12,8 @@ class Notifikasi extends Model
 
     public $timestamps = true;
     protected $fillable = [
-        'total_bayar',
-        'metode_pembayaran',
-        'id_dt',
+        'status_notifikasi',
+        'keterangan',
         'id_transaksi'
     ];
 }

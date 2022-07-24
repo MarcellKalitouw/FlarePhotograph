@@ -17,6 +17,7 @@ class TransaksiController extends Controller
                 ->leftjoin('users','users.id','transaksis.id_user')
                 ->select('transaksis.*', 'users.nama AS nama_user')
                 ->whereNull('transaksis.deleted_at')
+                ->orderBy('created_at', 'desc')
                 ->get();
         
         // dd($data);
@@ -62,10 +63,17 @@ class TransaksiController extends Controller
         // dd($id);
         $getDetailTransactionWithProduk = DB::table('detail_transaksis')
                                             ->leftJoin('produks', 'produks.id', 'detail_transaksis.id_produk')
+                                            ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
                                             ->where('id_transaksi', $id)
                                             ->where('detail_transaksis.status', '!=', 'Dalam Keranjang')
-                                            ->select('detail_transaksis.*','produks.*', 'detail_transaksis.status AS status_detail')
+                                            ->select(
+                                                        'detail_transaksis.*','produks.*',
+                                                        'detail_transaksis.status AS status_detail',
+                                                        'varian_produks.nama_varian as nama_varian',
+                                                        'varian_produks.harga as harga_varian'
+                                                    )
                                             ->get();
+                                            // ->dd();
         $this->getGambarProdukById($getDetailTransactionWithProduk);
         $this->getWarnaProductOrder($getDetailTransactionWithProduk);
         
@@ -95,7 +103,7 @@ class TransaksiController extends Controller
     public function updateStatus($id, $status){
         DB::beginTransaction();
         $transaksi = Transaksi::findOrFail($id);
-        // dd($transaksi);
+        // dd($transaksi, $status);
         try{
         // dd($id, $status);
 
@@ -103,21 +111,60 @@ class TransaksiController extends Controller
             $detailTransaksi = DB::table('detail_transaksis')
                                 ->where('id_transaksi',$id)
                                 ->get();
-            // dd($detailTransaksi);
+            // dd($updateStatusTransaksi);  
             foreach ($detailTransaksi as $item) {
                 $updateDetailTransaksi = DetailTransaksi::where('id', $item->id)
                                         ->update(['id_transaksi' =>$id, 'status'=>$status]);
             }
             $updateRiwayatTransaksi = RiwayatTransaksi::create(['id_transaksi'=>$id,'id_user'=> $transaksi->id_user,'status'=> $status]);
+
+            $getTransaksi = Transaksi::find($id);
+            $this->getAllRiwayatTransaksi($getTransaksi, $getTransaksi->id_user);
+            $this->getDetailHistoryTransaction($getTransaksi);
+            // dd($getTransaksi);
+
+            \Mail::to('richardkalitouw@gmail.com')->send(new \App\Mail\NotificationMail($getTransaksi));
+            
+            
             DB::commit();
             return redirect()->route('transaksi.show', $id)->with('success', 'Status Transaksi behasil di Update');
         }catch(\Exception $e){
             DB::rollback();
 
-            // dd($e);
+            dd($e);
             return redirect()->route('transaksi.show', $id)->with('error', 'Status Transaksi Gagal di Update');
         }
         
+    }
+
+    public function getAllRiwayatTransaksi($data, $userId){
+        
+        $getRiwayatTransaksi = DB::table('riwayat_transaksis')
+                                ->where('id_transaksi', $data->id)
+                                ->where('id_user', $userId)
+                                ->get();
+        $data->riwayat_transaksi = $getRiwayatTransaksi;
+    }
+    public function getDetailHistoryTransaction($data){
+        
+            $getDetailTransaksi = DB::table('detail_transaksis')
+                                ->leftJoin('produks', 'produks.id', 'detail_transaksis.id_produk')
+                                ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
+                                ->where('detail_transaksis.id_transaksi', $data->id)
+                                ->where('detail_transaksis.status', '!=', 'Dalam Keranjang')
+                                ->select(
+                                    'detail_transaksis.*','produks.*',
+                                    'detail_transaksis.status AS status_detail',
+                                    'varian_produks.nama_varian AS nama_varian',
+                                    'varian_produks.harga AS harga_varian'
+                                )
+                                ->get();
+            $this->getGambarProdukById($getDetailTransaksi);
+            $this->getWarnaProductOrder($getDetailTransaksi);
+
+            
+            $data->detail_transaksi = $getDetailTransaksi;
+            
     }
 
     public function getGambarProdukById($data) {
@@ -163,7 +210,6 @@ class TransaksiController extends Controller
             'no_hp' => 'required',
             'alamat' => 'required',
             'jam_booking' => 'required',
-            'jam_mulai' => 'required',
             'total_order' => 'required',
             'status' => 'required',
             'catatan' => 'required'

@@ -126,11 +126,13 @@
                                     </div> --}}
                                     
                                   </li>
+                                  <li class="list-item">Varian Produk : {{ $item->varian_produk ? $item->varian_produk->nama_varian : '-'}}</li>
+                                  <li class="list-item">Harga Varian : Rp. {{ $item->varian_produk ? number_format($item->varian_produk->harga, 0) : "-"}}</li>
                                   <li class="list-item">Status : {{ $item->status }}</li>
                                   <li class="list-item">harga : Rp. {{number_format($item->harga, 0)  }}</li>
                                   <li class="list-item">Qty  : {{ $item->qty }}</li>
                                   <li class="list-item">Diskon  : Rp. {{number_format($item->diskon, 0) }}</li>
-                                  <li class="list-item">Total  : Rp. {{ number_format($item->total, 0) }}</li>
+                                  <li class="list-item">Total  : Rp. {{ number_format($item->total , 0) }}</li>
                                 </ul>
                               </div>
                             </div>

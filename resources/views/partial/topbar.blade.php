@@ -34,7 +34,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a href="javascript:void(0);">
                                             <div class="icon-circle bg-cyan">
                                                 <i class="material-icons">add_shopping_cart</i>
@@ -111,7 +111,7 @@
                                                 </p>
                                             </div>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
                             <li class="footer">

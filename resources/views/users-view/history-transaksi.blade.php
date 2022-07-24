@@ -116,6 +116,49 @@
                                       <a>{{$no += 1  }}. Kode Transaksi : {{ $item->kode_transaksi }}</a>
                                       <div class="content">
                                         <table class="table table-hover">
+                                          <thead>
+                                              <tr style="text-align: center">
+                                                <th scope="col" colspan="4">Produk Yang di Pesan</th>
+                                                
+                                              </tr>
+                                              <tr>
+                                                <th scope="col">Produk</th>
+                                                <th scope="col">Warna</th>
+                                                <th scope="col">Harga</th>
+                                                {{-- <th scope="col">Total Transaksi</th> --}}
+                                              </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                              @foreach ($item->detail_transaksi as $data)
+                                                  <tr>
+                                                    {{-- <th scope="row">1</th> --}}
+                                                    <td>
+                                                      <p>{{ $data->nama_produk }}</p>
+                                                      <p>{{ $data->nama_varian ? $data->nama_varian : "-"}}</p>
+                                                    </td>
+                                                    <td>
+                                                        <div style="display: flex;">
+                                                             {{ $data->warna ? $data->warna->nama_warna : "-"}}
+                                                            <div class="" style="background-color: {{ $data->warna ? $data->warna->heksa_warna : "-"}};height:25px;width:25px;margin-left:10px;">
+                                                            
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    
+                                                    <td>
+                                                      {{ $item->status_transaksi }}
+                                                    </td>
+                                                    <td>
+                                                      <p>Harga Varian  : Rp.{{$data->harga_varian ? number_format($data->harga_varian) : "-"}}</p>
+                                                      <p>Harga Pokok : Rp.{{number_format($data->harga)}}</p>
+                                                      <p>Total  : Rp.{{number_format($data->total)}}</p>
+                                                    </td>
+                                                  </tr>
+                                              @endforeach
+                                              
+                                              
+                                            </tbody>
                                             <thead>
                                               <tr style="text-align: center">
                                                 <th scope="col" colspan="4">Transaksi di tanggal : {{date_format($item->created_at, "d F Y - H:i:s")  }}</th>
@@ -128,6 +171,7 @@
                                                 <th scope="col">Total Transaksi</th>
                                               </tr>
                                             </thead>
+                                            
                                             <tbody>
                                               <tr>
                                                 {{-- <th scope="row">1</th> --}}
@@ -175,12 +219,18 @@
                                                         <p class="card-text">Mohon bersabar menunggu konfirmasi dari admin.</p>
                                                       @elseif ($rt->status == 'Diterima')
                                                         <p class="card-text">Transaksi anda telah diterima, silahkan melanjutkan ke proses transaksi selanjutnya.</p>
-                                                      @elseif ($rt->status == 'Menunggu Pembayaran Pertama')
+                                                      @elseif ($rt->status == 'Menunggu Pembayaran Pertama' && $item->status_transaksi != 'Menunggu Pelunasan')
                                                         <p class="card-text">Silahkan konfirmasi pembayaran anda sebelum transaksi akan diproses.</p>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pembayaran Pertama</button>
-                                                    @endif
+                                                      @elseif ($rt->status == 'Menunggu Pelunasan')
+                                                        <p class="card-text">Silahkan konfirmasi pelunasa anda sebelum transaksi akan diproses.</p>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pelunasan</button>
+                                                  @endif
                                                   @else
-                                                      
+                                                      @if ($rt->status == 'Menunggu Pelunasan')
+                                                        <p class="card-text">Silahkan konfirmasi pelunasan anda sebelum transaksi akan diproses.</p>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pelunasan</button>
+                                                        @endif
                                                   @endif
                                                     
                                                 </div>
@@ -220,9 +270,12 @@
                                                         <label for="transfer_bank" class="col-form-label">Transfer ke Bank:</label>
                                                         <select class="form-control" id="transfer_bank" name="transfer_di" >
                                                           <option value="0" selected disabled> Transfer ke Bank:</option>
-                                                          <option value="1"> Bank BNI - Flare - 01232194213</option>
+                                                          @foreach ($bankTransfer as $item)
+                                                              <option value="{{ $item->id }}"> Bank {{ $item->nama_bank }} - {{ $item->atas_nama }} - {{ $item->no_rek }}</option>
+                                                          @endforeach
+                                                          {{-- <option value="1"> Bank BNI - Flare - 01232194213</option>
                                                           <option value="2"> Bank BCA - Flare - 02244459213</option>
-                                                          <option value="3"> Bank BRI - Flare - 124244459213</option>
+                                                          <option value="3"> Bank BRI - Flare - 124244459213</option> --}}
                                                         </select>
                                                       </div>
                                                       <div class="form-group">
