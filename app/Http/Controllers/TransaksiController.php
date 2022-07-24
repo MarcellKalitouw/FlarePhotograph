@@ -123,7 +123,10 @@ class TransaksiController extends Controller
             $this->getDetailHistoryTransaction($getTransaksi);
             // dd($getTransaksi);
 
-            \Mail::to('richardkalitouw@gmail.com')->send(new \App\Mail\NotificationMail($getTransaksi));
+            $getEmail = User::where('id', $getTransaksi->id_user)->first(['id','nama','email']);
+
+
+            \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
             
             
             DB::commit();

@@ -327,6 +327,14 @@
 
                                         </td>
                                     </tr> --}}
+                                    <tr>
+                                        <td>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d316.21287031797937!2d124.8736389407102!3d1.2751487703097817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32871525f83e8d8f%3A0x78c21542aef7e3e8!2sCafe%20Houseofloopar!5e0!3m2!1sen!2sid!4v1658674379963!5m2!1sen!2sid"
+                                                width="600" height="450" style="border:0;" allowfullscreen=""
+                                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        </td>
+                                    </tr>
 
                                     <tr>
                                         <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">

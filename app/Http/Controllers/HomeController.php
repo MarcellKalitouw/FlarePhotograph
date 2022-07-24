@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\KategoriProduk;
 use App\Models\LokasiTersedia;
 use App\Models\Transaksi;
-use App\Models\{DetailTransaksi, RiwayatTransaksi, RiwayatPembayaran, Notifikasi, BankTransfer};
+use App\Models\{User, DetailTransaksi, RiwayatTransaksi, RiwayatPembayaran, Notifikasi, BankTransfer};
 use DB;
 class HomeController extends Controller
 {
@@ -375,10 +375,12 @@ class HomeController extends Controller
     public function sendEmail ($id){
         // dd($id);
         $getTransaksi = Transaksi::find($id);
-            $this->getRiwayatTransaksi($getTransaksi, $getTransaksi->id_user);
-            $this->getAllDetailHistroyTransaction($getTransaksi);
-            
-            \Mail::to('omegasyaloom@gmail.com')->send(new \App\Mail\NotificationMail($getTransaksi));
+        $this->getRiwayatTransaksi($getTransaksi, $getTransaksi->id_user);
+        $this->getAllDetailHistroyTransaction($getTransaksi);
+        $getEmail = User::where('id', $getTransaksi->id_user)->first(['id','nama','email']);
+        
+        // dd($getEmail->email);
+        \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
         return redirect()->route('users-view.history-transaction');
     }
     
