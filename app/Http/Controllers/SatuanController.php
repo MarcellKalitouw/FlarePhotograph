@@ -45,7 +45,7 @@ class SatuanController extends Controller
         //dd($input);
         $satuan = DB::table('satuans')->insert($input);
 
-        return redirect()->route('satuan.index');
+        return redirect()->route('satuan.index')->with('create', '<strong> Satuan </strong> has created!!');
 
     }
 
@@ -81,7 +81,7 @@ class SatuanController extends Controller
         $satuan = Satuan::where('id', $id)->update($input);
         
 
-        return redirect()->route('satuan.index');
+        return redirect()->route('satuan.index')->with('update', '<strong> Satuan </strong> has updated!!');
     }
 
     
@@ -89,6 +89,6 @@ class SatuanController extends Controller
     {
         $s=Satuan::where('id',$id)->delete();
         // dd($s);
-        return redirect()->route('satuan.index');
+        return redirect()->route('satuan.index')->with('delete', '<strong> Satuan </strong> has deleted!!');
     }
 }

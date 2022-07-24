@@ -48,7 +48,7 @@ class WarnaController extends Controller
         $satuan_produk = Warna::create($input);
         
 
-        return redirect()->route('warna.index');
+        return redirect()->route('warna.index')->with('create', '<strong> Warna </strong> has created!!');
     }
 
    
@@ -85,7 +85,7 @@ class WarnaController extends Controller
         $warna = Warna::where('id', $id)->update($input);
         
 
-        return redirect()->route('warna.index');
+        return redirect()->route('warna.index')->with('update', '<strong> Warna </strong> has updated!!');
     }
 
    
@@ -93,6 +93,6 @@ class WarnaController extends Controller
     {
         Warna::where('id',$id)->delete();
 
-        return redirect()->route('warna.index');
+        return redirect()->route('warna.index')->with('delete', '<strong> Warna </strong> has deleted!!');
     }
 }

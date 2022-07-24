@@ -70,7 +70,7 @@ class SatuanProdukController extends Controller
         $satuan_produk = SatuanProduk::create($input);
         
 
-        return redirect()->route('satuan_produk.index');
+        return redirect()->route('satuan_produk.index')->with('create', '<strong> Satuan Produk </strong> has created!!');
 
     }
 
@@ -109,7 +109,7 @@ class SatuanProdukController extends Controller
         $satuan_produk = SatuanProduk::where('id', $id)->update($input);
         
 
-        return redirect()->route('satuan_produk.index');
+        return redirect()->route('satuan_produk.index')->with('update', '<strong> Satuan Produk </strong> has updated!!');
     }
 
     
@@ -117,6 +117,6 @@ class SatuanProdukController extends Controller
     {
         SatuanProduk::where('id',$id)->delete();
 
-        return redirect()->route('satuan_produk.index');
+        return redirect()->route('satuan_produk.index')->with('delete', '<strong> Satuan Produk </strong> has deleted!!');
     }
 }

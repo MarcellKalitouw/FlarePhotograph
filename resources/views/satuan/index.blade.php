@@ -2,6 +2,8 @@
 @section('content')
   <!-- Exportable Table -->
 
+<x-alert></x-alert>
+
 <div class="row clearfix">
    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
        <div class="card">
@@ -60,7 +62,7 @@
                                 <form action="{{route('satuan.destroy', $item->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn bg-red waves-effect">
+                                    <button type="submit" class="btn bg-red waves-effect" onclick="return confirm('Are You sure?')">
                                         <i class="material-icons">delete_forever</i>
                                     </button>
                                     <a href="{{route('satuan.edit', $item->id)}}" class="btn btn-warning waves-effect">
