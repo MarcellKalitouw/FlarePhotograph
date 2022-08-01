@@ -214,31 +214,122 @@
                                                 <div class="card-body">
                                                   <div class="float-right ">{{  date('l, d F Y',strtotime($rt->created_at)) }}</div>
                                                   <h4 class="card-title">{{ $rt->status }}</h4>
-                                                  @if ($item->bentuk_pembayaran == 'dp')
+                                                  {{-- @if ($item->bentuk_pembayaran == 'dp')
                                                       @if ($rt->status == 'Menunggu Konfirmasi')
                                                         <p class="card-text">Mohon bersabar menunggu konfirmasi dari admin.</p>
-                                                      @elseif ($rt->status == 'Diterima')
-                                                        <p class="card-text">Transaksi anda telah diterima, silahkan melanjutkan ke proses transaksi selanjutnya.</p>
-                                                      @elseif ($rt->status == 'Menunggu Pembayaran Pertama' && $item->status_transaksi != 'Menunggu Pelunasan')
+                                                      @endif
+                                                      @if ($rt->status == 'Menunggu Konfirmasi')
+                                                        <p class="card-text">Mohon bersabar menunggu konfirmasi dari admin.</p>
+                                                      @elseif ($rt->status == 'Menunggu Pembayaran Pertama')
                                                         <p class="card-text">Silahkan konfirmasi pembayaran anda sebelum transaksi akan diproses.</p>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pembayaran Pertama</button>
-                                                      @elseif ($rt->status == 'Menunggu Pelunasan')
-                                                        <p class="card-text">Silahkan konfirmasi pelunasa anda sebelum transaksi akan diproses.</p>
+                                                      @else
+                                                        <p>Tidak ada</p>
+                                                      @endif
+                                                      @if ($rt->status == 'Diterima')
+                                                        <p class="card-text">Transaksi anda telah diterima, silahkan melanjutkan ke proses transaksi selanjutnya.</p>
+                                                      @endif
+
+                                                      @if ($rt->status == 'Menunggu Pembayaran Pertama')
+                                                        <p class="card-text">Silahkan konfirmasi pembayaran anda sebelum transaksi akan diproses.</p>
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pembayaran Pertama</button>
+                                                      @endif
+                                                      @if ($rt->status == 'Menunggu Pelunasan')
+                                                        <p class="card-text">Silahkan konfirmasi pelunasannnn anda sebelum transaksi akan diproses.</p>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pelunasan</button>
-                                                  @endif
+                                                      @endif
                                                   @else
                                                       @if ($rt->status == 'Menunggu Pelunasan')
-                                                        <p class="card-text">Silahkan konfirmasi pelunasan anda sebelum transaksi akan diproses.</p>
+                                                        <p class="card-text">Silahkan konfirmasi 111pelunasan anda sebelum transaksi akan diproses.</p>
                                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pelunasan</button>
-                                                        @endif
-                                                  @endif
+                                                      @endif
+                                                  @endif --}}
+                                                  {{-- @if ($item->bentuk_pembayaran == 'dp' && $rt->status == 'Menunggu Konfirmasi')
+                                                    <p class="card-text">Mohon bersabar menunggu konfirmasi dari admin.</p>
+                                                  @elseif($item->bentuk_pembayaran == 'dp' || $rt->status == 'Menunggu Pembayaran Pertama')
+                                                    <p class="card-text">Silahkan konfirmasi pembayaran anda sebelum transaksi akan diproses.</p>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pembayaran Pertama</button>
+                                                  @else
+                                                    <p class="card-text">Transaksi anda telah diterima, silahkan melanjutkan ke proses transaksi selanjutnya.</p>
+                                                        
+                                                  @endif --}}
+                                                  {{-- @if ($item->bentuk_pembayaran == 'dp'  )
+                                                    @if ($rt->status == 'Menunggu Pembayaran Pertama')
+                                                      <p class="card-text">Silahkan konfirmasi pembayaran anda sebelum transaksi akan diproses.</p>
+                                                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal_{{ $rt->id }}" data-whatever="@mdo">Konfirmasi Pembayaran Pertama</button>
+                                                    @endif
+                                                  @endif --}}
+
+                                                  @php
+                                                    if($item->bentuk_pembayaran == 'dp'){
+                                                      if($rt->status == 'Menunggu Konfirmasi'){
+                                                        echo "<p class='card-text'>Mohon bersabar menunggu konfirmasi dari admin.</p>";
+                                                      }
+                                                      if($rt->status == 'Diproses') {
+                                                        echo "<p class='card-text'>Transaksi anda telah diproses, silahkan melanjutkan ke proses transaksi selanjutnya.</p>";
+                                                      }
+                                                      if($rt->status == 'Diterima') {
+                                                        echo "<p class='card-text'>Transaksi anda telah diterima, silahkan melanjutkan ke proses transaksi selanjutnya.</p>";
+                                                      }
+                                                      if($rt->status == 'Menunggu Pembayaran Pertama' && $item->status_transaksi != 'Menunggu Pelunasan' && $item->status_transaksi != 'Selesai'){
+                                                        echo "
+                                                          <p class='card-text'>Silahkan konfirmasi pembayaran anda sebelum transaksi akan diproses.</p>
+                                                          <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal_$rt->id_transaksi' data-whatever='@mdo'>Konfirmasi Pembayaran Pertama</button>
+                                                        ";
+                                                      }
+                                                      if($rt->status == 'Menunggu Pelunasan' && $item->status_transaksi != 'Selesai'){
+                                                        echo "
+                                                          <p class='card-text'>Silahkan konfirmasi 111pelunasan anda sebelum transaksi akan diproses.</p>
+                                                          <button type='button' class='btn btn-primary' data-toggle='moda' data-target='#exampleModal_$rt->id_transaksi' data-whatever='@mdo'>Konfirmasi Pelunasan</button>
+                                                        ";
+                                                      }
+                                                      if($rt->status == 'Ditolak') {
+                                                        echo "<p class='card-text'>Mohon maaf transaksi anda telah ditolak.</p>";
+                                                      }
+                                                      if($rt->status == 'Selesai') {
+                                                        echo "<p class='card-text'>Transaksi anda telah selesai, terimakasih sudah mempercayai kami.</p>";
+                                                      }
+                                                    }
+                                                    if($item->bentuk_pembayaran == 'lunas'){
+                                                      if($rt->status == 'Menunggu Konfirmasi'){
+                                                        echo "<p class='card-text'>Mohon bersabar menunggu konfirmasi dari admin.</p>";
+                                                      }
+                                                      if($rt->status == 'Diproses') {
+                                                        echo "<p class='card-text'>Transaksi anda telah diproses, silahkan melanjutkan ke proses transaksi selanjutnya.</p>";
+                                                      }
+                                                      if($rt->status == 'Diterima') {
+                                                        echo "<p class='card-text'>Transaksi anda telah diterima, silahkan melanjutkan ke proses transaksi selanjutnya.</p>";
+                                                      }
+                                                      if($rt->status == 'Menunggu Pembayaran Pertama' && $item->status_transaksi != 'Menunggu Pelunasan' && $item->status_transaksi != 'Selesai'){
+                                                        echo "
+                                                          <p class='card-text'>Silahkan konfirmasi pembayaran anda sebelum transaksi akan diproses.</p>
+                                                          <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal_$rt->id_transaksi' data-whatever='@mdo'>Konfirmasi Pembayaran Pertama</button>
+                                                        ";
+                                                      }
+                                                      if($rt->status == 'Menunggu Pelunasan' && $item->status_transaksi != 'Selesai'){
+                                                        echo "
+                                                          <p class='card-text'>Silahkan konfirmasi 111pelunasan anda sebelum transaksi akan diproses.</p>
+                                                          <button type='button' class='btn btn-primary' data-toggle='moda' data-target='#exampleModal_$rt->id_transaksi' data-whatever='@mdo'>Konfirmasi Pelunasan</button>
+                                                        ";
+                                                      }
+                                                      if($rt->status == 'Ditolak') {
+                                                        echo "<p class='card-text'>Mohon maaf transaksi anda telah ditolak.</p>";
+                                                      }
+                                                      if($rt->status == 'Selesai') {
+                                                        echo "<p class='card-text'>Transaksi anda telah selesai, terimakasih sudah mempercayai kami.</p>";
+                                                      }
+                                                    }
+                                                  @endphp
                                                     
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
                                           {{-- Modal --}}
-                                          <div class="modal fade" id="exampleModal_{{$rt->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          
+                                          
+                                          @endforeach
+                                          <div class="modal fade" id="exampleModal_{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                               <div class="modal-content">
                                                 <div class="modal-header">
@@ -317,8 +408,6 @@
                                               </div>
                                             </div>
                                           </div>
-                                          @endforeach
-  
                                       </div>
                                   </li>
                                   

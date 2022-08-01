@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Transaksi, DetailTransaksi, RiwayatTransaksi};
+use App\Models\{Transaksi, DetailTransaksi, RiwayatTransaksi, User};
 use Illuminate\Http\Request;
 
 use DB;
@@ -126,7 +126,7 @@ class TransaksiController extends Controller
             $getEmail = User::where('id', $getTransaksi->id_user)->first(['id','nama','email']);
 
 
-            \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
+            // \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
             
             
             DB::commit();
