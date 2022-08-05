@@ -273,6 +273,16 @@
     <!-- ChartJs -->
     <script src="{{ asset('template/plugins/chartjs/Chart.bundle.js')}}"></script>
 
+    <!-- Flot Charts Plugin Js -->
+    <script src="{{asset ('template/plugins/flot-charts/jquery.flot.js') }}"></script>
+    <script src="{{asset ('template/plugins/flot-charts/jquery.flot.resize.js') }}"></script>
+    <script src="{{asset ('template/plugins/flot-charts/jquery.flot.pie.js') }}"></script>
+    <script src="{{asset ('template/plugins/flot-charts/jquery.flot.categories.js') }}"></script>
+    <script src="{{asset ('template/plugins/flot-charts/jquery.flot.time.js') }}"></script>
+
+    <!-- Sparkline Chart Plugin Js -->
+    <script src="{{asset ('template/plugins/jquery-sparkline/jquery.sparkline.js') }}"></script>
+
      <!-- Jquery DataTable Plugin Js -->
      <script src="{{ asset('template/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
      <script src="{{ asset('template/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
@@ -286,6 +296,10 @@
     
       <!-- Custom Js -->
     <script src="{{ asset('template/js/admin.js') }}"></script>
+    {{-- <script src="{{ asset('template/js/pages/charts/chartjs.js') }}"></script> --}}
+    <script src="{{ asset('template/js/pages/index.js') }}"></script>
+    {{-- <script src="{{ asset('template/js/pages/charts/flot.js') }}"></script> --}}
+
     <script src="{{ asset('template/js/pages/ui/notifications.js') }}"></script>
     <script src="{{ asset('template/js/pages/ui/dialogs.js') }}"></script>
     <script src="{{ asset('template/js/pages/tables/jquery-datatable.js') }}"></script>
