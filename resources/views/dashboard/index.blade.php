@@ -122,7 +122,7 @@
                 data: {_token:`{{ csrf_token() }}`, year: getYear },
                 dataType: 'json',
                 success: function(res){
-                    alert("Success");
+                    // alert("Success");
                     console.log('data', res,'label',res.data.y,'jlh', res.data.jumlah);
                     
                     let newData = {

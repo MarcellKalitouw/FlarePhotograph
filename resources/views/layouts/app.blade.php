@@ -39,6 +39,8 @@
     
     <!-- JQuery DataTable Css -->
     <link href="{{ asset('template/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css')}}" rel="stylesheet">
+    {{-- <link href="{{ asset('btn_colvis/css/dataTables.colVis.css')}}" rel="stylesheet"> --}}
+    {{-- <link href="{{ asset('btn_colvis/css/dataTables.colvis.jqueryui.css')}}" rel="stylesheet"> --}}
 
    
      <!-- Bootstrap Select Css -->
@@ -52,6 +54,32 @@
 
     <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
     <link href="{{ asset('template/css/themes/all-themes.css') }}" rel="stylesheet" />
+    <style>
+        /* issue is here! */
+        
+        .dt-button-collection{
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            padding: 4px 4px 2px 4px;
+            border: 1px solid #ccc;
+            border: 1px solid rgba(0, 0, 0, 0.4);
+            background-color: white;
+            overflow: hidden;
+            z-index: 2002;
+            border-radius: 5px;
+            box-shadow: 3px 4px 10px 1px rgb(0 0 0 / 30%);
+            box-sizing: border-box;
+        }
+        
+        
+
+    </style>
 </head>
 
 <body class="theme-blue" onload="showAlert()">
@@ -285,6 +313,7 @@
 
      <!-- Jquery DataTable Plugin Js -->
      <script src="{{ asset('template/plugins/jquery-datatable/jquery.dataTables.js') }}"></script>
+     {{-- <script src="{{ asset('btn_colvis/js/dataTables.colVis.min.js') }}"></script> --}}
      <script src="{{ asset('template/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js') }}"></script>
      <script src="{{ asset('template/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js') }}"></script>
      <script src="{{ asset('template/plugins/jquery-datatable/extensions/export/buttons.flash.min.js') }}"></script>
@@ -293,6 +322,7 @@
      <script src="{{ asset('template/plugins/jquery-datatable/extensions/export/vfs_fonts.js')}}"></script>
      <script src="{{ asset('template/plugins/jquery-datatable/extensions/export/buttons.html5.min.js') }}"></script>
      <script src="{{ asset('template/plugins/jquery-datatable/extensions/export/buttons.print.min.js') }}"></script>
+    <script src="https://cdn.datatables.net/buttons/1.0.3/js/buttons.colVis.js"></script>
     
       <!-- Custom Js -->
     <script src="{{ asset('template/js/admin.js') }}"></script>
