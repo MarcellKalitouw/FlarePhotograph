@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Transaksi, DetailTransaksi, RiwayatTransaksi};
+use App\Models\{Transaksi, DetailTransaksi, RiwayatTransaksi, User};
 use Illuminate\Http\Request;
 
 use DB;

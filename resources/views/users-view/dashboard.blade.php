@@ -40,16 +40,16 @@
                 <div class="product-item">
                 <a href="{{ route('users-view.ourproduct') }}"><img src="{{asset ('storage/'.$item->gambar_produk) }}" alt=""></a>
                     <div class="down-content">
-                        <a href="#"><h4>{{ $item->nama_kategori }}</h4></a>
+                        <a href="{{ route('users-view.ourproduct') }}"><h4>{{ $item->nama_kategori }}</h4></a>
                         <p>{{ $item->deskripsi }}</p>
-                        <ul class="stars">
+                        {{-- <ul class="stars">
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star"></i></li>
                         </ul>
-                        <span>Reviews (24)</span>
+                        <span>Reviews (24)</span> --}}
                     </div>
                 </div>
             </div>
