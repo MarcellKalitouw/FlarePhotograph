@@ -50,14 +50,14 @@
                                   -webkit-line-clamp: 3;
                                   -webkit-box-orient: vertical;
                                   ">{{ $item->deskripsi }}</p>
-                                  <ul class="stars">
+                                  {{-- <ul class="stars">
                                       <li><i class="fa fa-star"></i></li>
                                       <li><i class="fa fa-star"></i></li>
                                       <li><i class="fa fa-star"></i></li>`
                                       <li><i class="fa fa-star"></i></li>
                                       <li><i class="fa fa-star"></i></li>
                                   </ul>
-                                  <span>Reviews (12)</span>
+                                  <span>Reviews (12)</span> --}}
                                 </div>
                             </div>
                         </div>

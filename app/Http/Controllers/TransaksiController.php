@@ -126,7 +126,7 @@ class TransaksiController extends Controller
             $getEmail = User::where('id', $getTransaksi->id_user)->first(['id','nama','email']);
 
 
-            \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
+            // \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
             
             
             DB::commit();

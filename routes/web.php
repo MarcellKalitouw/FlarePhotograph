@@ -18,7 +18,8 @@ use App\Http\Controllers\{
      LokasiTersediaController,
      BankTransferController,
      ProfileUsahaController,
-     VarianProdukController
+     VarianProdukController,
+     DashboardController
     };
 use App\Http\Middleware\CheckStatus;
 
@@ -36,7 +37,10 @@ Route::get('/', function () {
         return redirect('/landingPage');
 });
 Route::middleware(['checkStatus'])->group(function () {
-    
+    Route::resource('dashboard-admin', DashboardController::class);
+    Route::post('ajax-request-transaksiSelesaiByYear', [DashboardController::class, 'requestDataTransaksiByYear'])->name('ajax.ts-byyear');
+
+
     Route::resource('satuan', SatuanController::class);
     Route::resource('satuan_produk', SatuanProdukController::class);
     Route::resource('warna', WarnaController::class);
