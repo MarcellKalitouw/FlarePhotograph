@@ -361,8 +361,8 @@
                                                         <label for="transfer_bank" class="col-form-label">Transfer ke Bank:</label>
                                                         <select class="form-control" id="transfer_bank" name="transfer_di" >
                                                           <option value="0" selected disabled> Transfer ke Bank:</option>
-                                                          @foreach ($bankTransfer as $item)
-                                                              <option value="{{ $item->id }}"> Bank {{ $item->nama_bank }} - {{ $item->atas_nama }} - {{ $item->no_rek }}</option>
+                                                          @foreach ($bankTransfer as $bt)
+                                                              <option value="{{ $bt->id }}"> Bank {{ $bt->nama_bank }} - {{ $bt->atas_nama }} - {{ $bt->no_rek }}</option>
                                                           @endforeach
                                                           {{-- <option value="1"> Bank BNI - Flare - 01232194213</option>
                                                           <option value="2"> Bank BCA - Flare - 02244459213</option>

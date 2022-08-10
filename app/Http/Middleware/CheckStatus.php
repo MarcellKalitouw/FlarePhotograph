@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\Notifikasi;
 
 class CheckStatus
 {
@@ -17,6 +18,8 @@ class CheckStatus
     public function handle(Request $request, Closure $next)
     {
         // dd($next);
+        // $notif = Notifikasi::all();
+        // dd($notif);cls
         $getToken = $request->session()->get('email');
         // dd(session('email'));
         if($getToken){

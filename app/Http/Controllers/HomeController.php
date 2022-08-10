@@ -462,6 +462,7 @@ class HomeController extends Controller
         
         // dd($allTransaksi[0]->riwayat_transaksi[1]->status);
         // dd($allTransaksi[0]->status_transaksi);
+        // dd($allTransaksi);
 
 
         return view('users-view.history-transaksi', compact('getUser','allTransaksi','bankTransfer'));
