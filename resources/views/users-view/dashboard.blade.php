@@ -6,7 +6,7 @@
       <div class="owl-banner owl-carousel">
         <div class="banner-item-01">
           <div class="text-content">
-            <h4>Best Offer</h4>
+            <h4>Flare Photogrphy </h4>
             <h2>New Arrivals On Sale</h2>
           </div>
         </div>
@@ -172,7 +172,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>About Sixteen Clothing</h2>
+              <h2>Tentang Flare Photogrphy</h2>
             </div>
           </div>
           <div class="col-md-6">
@@ -230,10 +230,7 @@
       <div class="row">
           <div class="col-md-12">
             <div class="inner-content">
-                <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
-            
-            - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
-            </div>
+                <p>Copyright &copy; 2022 Flare Photography
           </div>
       </div>
       </div>
