@@ -121,7 +121,7 @@
                                                     //                 </button>';
                                                     //         break;
                                                     // }
-                                                    if($grt->status == 'Diterima' || $grt->status == 'Ditolak' ){
+                                                    if($grt->status == 'Diterima' || $grt->status == 'Ditolak'  ){
                                                         $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" disabled> 
                                                                         Diterima
                                                                     </button>';
@@ -155,7 +155,7 @@
                                                  @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Diproses' || $grt->status == 'Ditolak'){
+                                                        if($grt->status == 'Diproses' || $grt->status == 'Ditolak' || $grt->status == 'Menunggu Konfirmasi'){
                                                             $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" disabled> 
                                                                                 Diproses
                                                                             </button>';
@@ -180,7 +180,7 @@
                                                 @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Ditolak'){
+                                                        if($grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Ditolak' || $grt->status == 'Menunggu Konfirmasi'){
                                                             $btnMenungguPembayaran = '<button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" disabled> 
                                                                                 Menunggu Pembayaran
                                                                             </button>';
@@ -207,7 +207,7 @@
                                                 @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Menunggu Pelunasan' || $grt->status == 'Ditolak'){
+                                                        if($grt->status == 'Menunggu Pelunasan' || $grt->status == 'Ditolak' || $grt->status == 'Menunggu Konfirmasi'){
                                                             $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
                                                                             Menunggu Pelunasan
                                                                         </button>';
@@ -234,7 +234,7 @@
                                                 @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Selesai' || $grt->status == 'Ditolak'){
+                                                        if($grt->status == 'Selesai' || $grt->status == 'Ditolak'|| $grt->status == 'Menunggu Konfirmasi'){
                                                             $btnSelesai = '<button class="btn btn-primary waves-effect " data-type="Selesai" disabled > 
                                                                             Selesai
                                                                         </button>';
