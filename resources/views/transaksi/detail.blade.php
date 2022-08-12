@@ -106,54 +106,177 @@
                                         <li>
                                             <a class="js-sweetalert">
                                             <?php $diterima='Diterima'?>
-                                                <button class="btn btn-primary waves-effect " data-type="Diterima" > 
+                                            @php
+                                                foreach ($getRiwayatTransaksi as $grt ) {
+                                                    // dd($grt);
+                                                    // switch ($grt->status) {
+                                                    //     case 'Diterima':
+                                                    //         $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" disabled> 
+                                                    //                     Diterima';
+                                                    //         break;
+                                                        
+                                                    //     default:
+                                                    //         $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" > 
+                                                    //                     Diterima
+                                                    //                 </button>';
+                                                    //         break;
+                                                    // }
+                                                    if($grt->status == 'Diterima' || $grt->status == 'Ditolak' ){
+                                                        $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" disabled> 
+                                                                        Diterima
+                                                                    </button>';
+                                                        break;
+                                                    }else{
+                                                        $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" > 
+                                                                        Diterima
+                                                                    </button>';
+                                                    }
+                                                    // while ($grt->status == 'Diterima' ) {
+                                                    //     $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" disabled> 
+                                                    //                     Diterima
+                                                    //                 </button>';
+                                                    // }
+                                                    // $btnDiterima = '';
+
+                                                }
+                                            @endphp
+                                                {!! $btnDiterima !!}
+                                                {{-- <button class="btn btn-primary waves-effect " data-type="Diterima" disabled> 
                                                     Diterima
-                                                </button>
+                                                </button> --}}
                                             </a>
                                         </li>
                                         
                                         <li>
                                             <a class="js-sweetalert">
+                                                
                                                 <?php $diproses='Diproses'?>
-                                                <button class="btn btn-primary waves-effect " data-type="Diproses" > 
-                                                    Diproses
-                                                </button>
+
+                                                 @php
+                                                    foreach ($getRiwayatTransaksi as $grt ) {
+                                                        // dd($grt);
+                                                        if($grt->status == 'Diproses' || $grt->status == 'Ditolak'){
+                                                            $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" disabled> 
+                                                                                Diproses
+                                                                            </button>';
+                                                            break;
+                                                        }else{
+                                                            $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" > 
+                                                                                Diproses
+                                                                            </button>';
+                                                        }
+                                                        
+
+                                                    }
+                                                @endphp
+                                                    {!! $btnDiproses !!}
+                                                
                                                 
                                             </a>
                                         </li>
                                         <li>
                                             <a class="js-sweetalert">
                                                 <?php $menunggupembayaran='Menunggu Pembayaran Pertama'?>
-                                                <button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" > 
-                                                    Menunggu Pembayaran
-                                                </button>
+                                                @php
+                                                    foreach ($getRiwayatTransaksi as $grt ) {
+                                                        // dd($grt);
+                                                        if($grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Ditolak'){
+                                                            $btnMenungguPembayaran = '<button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" disabled> 
+                                                                                Menunggu Pembayaran
+                                                                            </button>';
+                                                            break;
+
+                                                        }else{
+                                                            $btnMenungguPembayaran = '<button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" > 
+                                                                                Menunggu Pembayaran
+                                                                            </button>';
+                                                        }
+                                                        
+
+                                                    }
+                                                @endphp
+                                                {!! $btnMenungguPembayaran !!}
+                                                
                                                 
                                             </a>
                                         </li>
                                         <li>
                                             <a class="js-sweetalert">
                                                 <?php $menunggupelunasan='Menunggu Pelunasan'?>
-                                                <button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" > 
-                                                    Menunggu Pelunasan
-                                                </button>
+
+                                                @php
+                                                    foreach ($getRiwayatTransaksi as $grt ) {
+                                                        // dd($grt);
+                                                        if($grt->status == 'Menunggu Pelunasan' || $grt->status == 'Ditolak'){
+                                                            $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
+                                                                            Menunggu Pelunasan
+                                                                        </button>';
+                                                            break;
+
+                                                        }else{
+                                                            $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" > 
+                                                                    Menunggu Pelunasan
+                                                                </button>';
+                                                        }
+                                                        
+
+                                                    }
+                                                @endphp
+                                                {!! $btnMenungguPelunasan !!}
+                                                
                                                 
                                             </a>
                                         </li>
                                         <li>
                                             <a class="js-sweetalert">
                                                 <?php $sls='Selesai'?>
-                                                <button class="btn btn-primary waves-effect " data-type="Selesai" > 
-                                                    Selesai
-                                                </button>
+
+                                                @php
+                                                    foreach ($getRiwayatTransaksi as $grt ) {
+                                                        // dd($grt);
+                                                        if($grt->status == 'Selesai' || $grt->status == 'Ditolak'){
+                                                            $btnSelesai = '<button class="btn btn-primary waves-effect " data-type="Selesai" disabled > 
+                                                                            Selesai
+                                                                        </button>';
+                                                            break;
+
+                                                        }else{
+                                                            $btnSelesai = '<button class="btn btn-primary waves-effect " data-type="Selesai" > 
+                                                                            Selesai
+                                                                        </button>';
+                                                        }
+                                                        
+
+                                                    }
+                                                @endphp
+                                                {!! $btnSelesai !!}
+                                                
                                                 
                                             </a>
                                         </li>
                                         <li>
                                             <a class="js-sweetalert">
                                                 <?php $dtlk='Ditolak'?>
-                                                <button class="btn btn-primary waves-effect " data-type="Ditolak" > 
-                                                    Ditolak
-                                                </button>
+                                                @php
+                                                    foreach ($getRiwayatTransaksi as $grt ) {
+                                                        // dd($grt);
+                                                        if($grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Menunggu Pelunasan'){
+                                                            $btnDitolak = '<button class="btn btn-primary waves-effect " data-type="Ditolak" disabled> 
+                                                                                Ditolak
+                                                                            </button>';
+                                                            break;
+
+                                                        }else{
+                                                            $btnDitolak = '<button class="btn btn-primary waves-effect " data-type="Ditolak" > 
+                                                                            Ditolak
+                                                                        </button>';
+                                                        }
+                                                        
+
+                                                    }
+                                                @endphp
+                                                {!! $btnDitolak !!}
+                                                
                                                 
                                             </a>
                                         </li>

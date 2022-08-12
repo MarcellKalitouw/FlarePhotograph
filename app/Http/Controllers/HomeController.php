@@ -331,7 +331,8 @@ class HomeController extends Controller
             $notifikasi = Notifikasi::create([
                 'id_transaksi' => $transaksi->id,
                 'keterangan' => "Transaksi Baru",
-                'status_notifikasi' => 'Baru'
+                'status_notifikasi' => 'Baru',
+                'from' => 'Pelanggan'
             ]);
 
             
@@ -462,17 +463,27 @@ class HomeController extends Controller
         
         // dd($allTransaksi[0]->riwayat_transaksi[1]->status);
         // dd($allTransaksi[0]->status_transaksi);
-        // dd($allTransaksi);
+        // dd($allTransaksi[0]);
 
 
         return view('users-view.history-transaksi', compact('getUser','allTransaksi','bankTransfer'));
         
     }
      public function addTotalDp($data){
+        // dd($data[0]->riwayat_transaksi);
         foreach ($data as $item ) {
             if($item->bentuk_pembayaran =="dp"){
-                $item->total_dp1 = $item->total_transaksi / 2;
-                $item->total_pelunasan = $item->total_transaksi - $item->total_dp1;
+                foreach ($item->riwayat_transaksi as $rt) {
+                    if($rt->status == "Menunggu Pembayaran Pertama"){
+                        $item->total_dp1 = $item->total_transaksi / 2;
+                        $item->total_pelunasan = $item->total_transaksi - $item->total_dp1;
+                        // dd('test');
+                    }else{
+                        $item->total_pelunasan = $item->total_transaksi;
+                        $item->total_dp1 = $item->total_transaksi / 2;
+                    }    
+                }
+                
             }else{
                 $item->total_dp1 = 0;
                 $item->total_pelunasan = $item->total_transaksi;
@@ -534,7 +545,8 @@ class HomeController extends Controller
         $notifikasi = Notifikasi::create([
                 'id_transaksi' => $request->id_transaksi,
                 'keterangan' => $status,
-                'status_notifikasi' => "Baru"
+                'status_notifikasi' => "Baru",
+                'from' => 'Pelanggan'
             ]);
 
         $riwayatPembayaran = RiwayatPembayaran::create($input);
