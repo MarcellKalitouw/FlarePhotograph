@@ -309,7 +309,7 @@
                                                       if($rt->status == 'Menunggu Pelunasan' && $item->status_transaksi != 'Selesai'){
                                                         echo "
                                                           <p class='card-text'>Silahkan konfirmasi pelunasan anda sebelum transaksi akan diproses.</p>
-                                                          <button type='button' class='btn btn-primary' data-toggle='moda' data-target='#exampleModal_$rt->id_transaksi' data-whatever='@mdo'>Konfirmasi Pelunasan</button>
+                                                          <button type='button' class='btn btn-primary' data-toggle='modal' data-target='#exampleModal_$rt->id_transaksi' data-whatever='@mdo'>Konfirmasi Pelunasan</button>
                                                         ";
                                                       }
                                                       if($rt->status == 'Ditolak') {
