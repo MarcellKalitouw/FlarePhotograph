@@ -231,6 +231,7 @@ class TransaksiController extends Controller
     
     public function destroy($id)
     {
+        // dd($id);    
         Transaksi::where('id', $id)->delete();
         
         return redirect()->route('transaksi.index');

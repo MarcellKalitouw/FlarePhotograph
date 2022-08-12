@@ -67,9 +67,10 @@
                                     <button type="submit" class="btn bg-red waves-effect">
                                         <i class="material-icons">delete_forever</i>
                                     </button>
-                                    <a href="{{route('transaksi.edit', $item->id)}}" class="btn btn-warning waves-effect">
+                                    
+                                    {{-- <a href="{{route('transaksi.edit', $item->id)}}" class="btn btn-warning waves-effect">
                                         <i class="material-icons">create</i>
-                                    </a>
+                                    </a> --}}
                                     <a href="{{route('transaksi.show', $item->id)}}" class="btn btn-primary waves-effect">
                                         <i class="material-icons">remove_red_eye</i>
                                     </a>

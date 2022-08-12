@@ -331,7 +331,8 @@ class HomeController extends Controller
             $notifikasi = Notifikasi::create([
                 'id_transaksi' => $transaksi->id,
                 'keterangan' => "Transaksi Baru",
-                'status_notifikasi' => 'Baru'
+                'status_notifikasi' => 'Baru',
+                'from' => 'Pelanggan'
             ]);
 
             
@@ -534,7 +535,8 @@ class HomeController extends Controller
         $notifikasi = Notifikasi::create([
                 'id_transaksi' => $request->id_transaksi,
                 'keterangan' => $status,
-                'status_notifikasi' => "Baru"
+                'status_notifikasi' => "Baru",
+                'from' => 'Pelanggan'
             ]);
 
         $riwayatPembayaran = RiwayatPembayaran::create($input);

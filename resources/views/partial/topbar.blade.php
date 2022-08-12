@@ -15,25 +15,32 @@
                     <li class="dropdown">
                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
                             <i class="material-icons">notifications</i>
-                            <span class="label-count">7</span>
+                            <span class="label-count">
+                                {{ count($notif) }} 
+                            </span>
                         </a>
                         <ul class="dropdown-menu">
                             <li class="header">NOTIFICATIONS</li>
                             <li class="body">
                                 <ul class="menu">
-                                    <li>
-                                        <a href="javascript:void(0);">
-                                            <div class="icon-circle bg-light-green">
-                                                <i class="material-icons">person_add</i>
-                                            </div>
-                                            <div class="menu-info">
-                                                <h4>12 new members joined</h4>
-                                                <p>
-                                                    <i class="material-icons">access_time</i> 14 mins ago
-                                                </p>
-                                            </div>
-                                        </a>
-                                    </li>
+                                    @foreach ($notif as $item)
+                                        <li>
+                                            <a href="{{ route('notifikasi.update-seen', $item->id) }}">
+                                                {{-- <div class="icon-circle bg-light-green">
+                                                    <i class="material-icons">add_shopping_cart</i>
+                                                </div> --}}
+                                                <div class="menu-info">
+                                                    <h4>{{ $item->keterangan }}</h4>
+                                                    <p>
+                                                        <i class="material-icons">access_time</i>
+                                                        {{ $item->created_at }}
+
+                                                    </p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                    
                                     {{-- <li>
                                         <a href="javascript:void(0);">
                                             <div class="icon-circle bg-cyan">
@@ -115,7 +122,11 @@
                                 </ul>
                             </li>
                             <li class="footer">
-                                <a href="javascript:void(0);">View All Notifications</a>
+                                @if (count($notif) != 0)
+                                    <a href="javascript:void(0);">Tidak ada Notifikasi</a>
+                                @else
+                                    <a href="{{ route('notifikasi.index') }}">Lihat Semua Notifikasi</a>
+                                @endif
                             </li>
                         </ul>
                     </li>

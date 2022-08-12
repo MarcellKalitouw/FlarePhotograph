@@ -53,7 +53,11 @@ Route::middleware(['checkStatus'])->group(function () {
     Route::get('transaksi_update/{id}/{status}', [TransaksiController::class, 'updateStatus'])->name('transaksi.update-status');
     
     Route::resource('detail_transaksi', DetailTransaksiController::class);
+    
     Route::resource('notifikasi', NotifikasiController::class);
+    Route::get('update_notifikasi/{id}', [NotifikasiController::class, 'updateNotifikasi'])->name('notifikasi.update-seen');
+    
+
     Route::resource('lokasi_tersedia', LokasiTersediaController::class);
 
     Route::resource('bank_transfer', BankTransferController::class);

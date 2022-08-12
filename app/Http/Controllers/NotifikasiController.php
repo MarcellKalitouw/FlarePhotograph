@@ -21,6 +21,14 @@ class NotifikasiController extends Controller
         // dd($data);
         return view('notifikasi.index', compact('data'));
     }
+    public function updateNotifikasi($id){
+
+        // dd($id);
+        $find = Notifikasi::where('id', $id)->first();
+        $update = Notifikasi::where('id', $id)->update(['status_notifikasi'=>'Telah Dilihat']);
+        // dd($find);
+        return redirect()->route('transaksi.show', $find->id_transaksi);
+    }
 
     
     public function create()
