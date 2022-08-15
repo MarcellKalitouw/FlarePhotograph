@@ -83,7 +83,6 @@
                             <th>Tanggal Kegiatan</th>
                             <th>Nama Event (Produk)</th>
                             <th>Biaya Tambahan</th>
-                            <th>Biaya Tambahan</th>
                             <th>Total Harga</th>
                             <th>Keterangan Pembayaran</th>
                             <th>Created at</th>
@@ -156,7 +155,26 @@
         document.getElementById("myButton").onclick = function () {
             const month =  document.getElementById("myMonth").value;
             // console.log('getMonth', month);
-            location.href = `/transaksi_laporan/${month}`;
+            // location.href = `/transaksi_laporan/${month}`;
+            url = `/transaksi_export/${month}`;
+
+            // $.get(url);
+            $.ajax(url,   // request url
+                {
+                    url: url,
+                    method: "GET",
+                    success: function (data, status, xhr) {// success callback function
+                        // $('p').append(data);
+                        // window.location.href = url;
+                        var a = document.createElement("a");
+                        a.download = "filename.xls";
+                        a.href = url;
+                        document.body.appendChild(a);
+                        a.click();
+                        location.href = `/transaksi_laporan/${month}`;
+
+                }
+            });
         };
 
     </script>

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\{Transaksi, DetailTransaksi, RiwayatTransaksi, User};
 use Illuminate\Http\Request;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TransaksiExport;
+
 use DB;
 
 class TransaksiController extends Controller
@@ -267,6 +270,8 @@ class TransaksiController extends Controller
                                         ->get();
                     $item->detail_transaksi = $getDetailTransaksi;
                 };
+                // $this->ExportTransaction($transaksiLaporan);
+                // Excel::download(new TransaksiExport("export.export-transaksi", $transaksiLaporan), 'new_transaksi-.xlsx');
         }else{
             $transaksiLaporan = Transaksi::
                                 leftJoin('users', 'transaksis.id_user', 'users.id')
@@ -295,7 +300,39 @@ class TransaksiController extends Controller
         // $getDetail = DB::table('detail_transaksis')->groupBy('id');
         // $transaksiLaporan = DB::table($getDetail, 'dt')->get();
         // dd($transaksiLaporan);
+        
         return view('transaksi.transaksi-report', compact('transaksiLaporan'));
+
+    }
+
+    public function ExportTransaction ($bulan=null){
+        // dd($bulan);
+        $transaksiLaporan = DB::table('transaksis')
+                            ->leftJoin('users', 'transaksis.id_user', 'users.id')
+                            // ->leftJoin('detail_transaksis', 'transaksis.id', 'detail_transaksis.id_transaksi')
+                            ->where('transaksis.created_at', 'LIKE', $bulan."%")
+                            ->where('transaksis.status_transaksi', 'Selesai')
+                            ->whereNull('transaksis.deleted_at')
+                            ->select('transaksis.*', 'users.nama as nama_pelanggan', 'users.no_hp as no_telp', 'users.email as email_pelanggan')
+                            ->get();
+        
+                foreach ($transaksiLaporan as $item ) {
+                    $getDetailTransaksi = DB::table('detail_transaksis')
+                                        ->leftJoin('produks', 'produks.id', 'detail_transaksis.id_produk')
+                                        ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
+                                        ->where('detail_transaksis.id_transaksi', $item->id)
+                                        ->where('detail_transaksis.status', '!=', 'Dalam Keranjang')
+                                        ->select(
+                                            'detail_transaksis.*','produks.*',
+                                            'detail_transaksis.status AS status_detail',
+                                            'varian_produks.nama_varian AS nama_varian',
+                                            'varian_produks.harga AS harga_varian'
+                                        )
+                                        ->get();
+                    $item->detail_transaksi = $getDetailTransaksi;
+                };
+
+        return Excel::download(new TransaksiExport("export.export-transaksi", $transaksiLaporan), 'new_transaksi-.xlsx');
     }
     public function requestStatusTransaksiByMonth(Request $req){
         

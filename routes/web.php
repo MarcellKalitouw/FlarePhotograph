@@ -73,6 +73,7 @@ Route::middleware(['checkStatus'])->group(function () {
 
 
 Route::get('transaksi_laporan/{bulan?}',[TransaksiController::class, 'transactionReport'])->name('transaksi.report');
+Route::get('transaksi_export/{bulan?}',[TransaksiController::class, 'ExportTransaction'])->name('transaksi.export');
 
 // Start middle Universe
 Route::resource('users', UsersController::class);
