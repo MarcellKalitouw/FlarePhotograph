@@ -22,6 +22,23 @@ class DashboardController extends Controller
         return view('dashboard.index', compact('transaksi', 'pengguna', 'produk'));
     }
 
+    
+    public function convertDateArray($data){
+        // dd($data);
+        $newArray = array();
+        // $itemArray = new \ArrayObject();
+        
+        foreach ($data as $item ) {
+            $itemArray = new \stdClass();
+            $itemArray->y = date('F', strtotime('2022-'.$item->month.'-1')); 
+            $itemArray->jumlah = $item->value;
+            // dd($itemArray);
+            array_push($newArray, $itemArray);
+        }
+        // dd($newArray);
+        return $newArray;
+    }
+
     public function requestDataTransaksiByYear(Request $req){
         
         $groupByMonth = "YEAR(created_at),MONTH(created_at)";
@@ -38,21 +55,7 @@ class DashboardController extends Controller
         return response()->json(['success' => true, 'data' => $getByMonth]);
         
     }
-    public function convertDateArray($data){
-        // dd($data);
-        $newArray = array();
-        // $itemArray = new \ArrayObject();
-        
-        foreach ($data as $item ) {
-            $itemArray = new \stdClass();
-            $itemArray->y = date('F', strtotime('2022-'.$item->month.'-1')); 
-            $itemArray->jumlah = $item->value;
-            // dd($itemArray);
-            array_push($newArray, $itemArray);
-        }
-        // dd($newArray);
-        return $newArray;
-    }
+    
 
     public function create()
     {

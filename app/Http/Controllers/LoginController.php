@@ -52,7 +52,7 @@ class LoginController extends Controller
                         'tipe' => $user->tipe
                     ]);
                     // dd(session()->all());
-                    return redirect()->route('produk.index')->with('success', '<b>Login Admin Berhasil</b>');
+                    return redirect()->route('dashboard-admin.index')->with('success', '<b>Login Admin Berhasil</b>');
                 }else{
                     session([
                         'email' => $user->email,

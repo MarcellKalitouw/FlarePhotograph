@@ -236,4 +236,84 @@ class TransaksiController extends Controller
         
         return redirect()->route('transaksi.index');
     }
+
+    public function transactionReport($bulan=null){
+        // dd($bulan);
+        
+        $transaksiLaporan = '';
+        //                     // ->dd();
+        if($bulan){
+             $transaksiLaporan = DB::table('transaksis')
+                            ->leftJoin('users', 'transaksis.id_user', 'users.id')
+                            // ->leftJoin('detail_transaksis', 'transaksis.id', 'detail_transaksis.id_transaksi')
+                            ->where('transaksis.created_at', 'LIKE', $bulan."%")
+                            ->where('transaksis.status_transaksi', 'Selesai')
+                            ->whereNull('transaksis.deleted_at')
+                            ->select('transaksis.*', 'users.nama as nama_pelanggan', 'users.no_hp as no_telp', 'users.email as email_pelanggan')
+                            ->get();
+        
+                foreach ($transaksiLaporan as $item ) {
+                    $getDetailTransaksi = DB::table('detail_transaksis')
+                                        ->leftJoin('produks', 'produks.id', 'detail_transaksis.id_produk')
+                                        ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
+                                        ->where('detail_transaksis.id_transaksi', $item->id)
+                                        ->where('detail_transaksis.status', '!=', 'Dalam Keranjang')
+                                        ->select(
+                                            'detail_transaksis.*','produks.*',
+                                            'detail_transaksis.status AS status_detail',
+                                            'varian_produks.nama_varian AS nama_varian',
+                                            'varian_produks.harga AS harga_varian'
+                                        )
+                                        ->get();
+                    $item->detail_transaksi = $getDetailTransaksi;
+                };
+        }else{
+            $transaksiLaporan = Transaksi::
+                                leftJoin('users', 'transaksis.id_user', 'users.id')
+                                // ->where('transaksis.status_transaksi', 'Selesai')
+                                ->select('transaksis.*', 'users.nama as nama_pelanggan', 'users.no_hp as no_telp', 'users.email as email_pelanggan')
+                                ->get();
+            foreach ($transaksiLaporan as $item ) {
+                    $getDetailTransaksi = DB::table('detail_transaksis')
+                                        ->leftJoin('produks', 'produks.id', 'detail_transaksis.id_produk')
+                                        ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
+                                        ->where('detail_transaksis.id_transaksi', $item->id)
+                                        ->where('detail_transaksis.status', '!=', 'Dalam Keranjang')
+                                        ->select(
+                                            'detail_transaksis.*','produks.*',
+                                            'detail_transaksis.status AS status_detail',
+                                            'varian_produks.nama_varian AS nama_varian',
+                                            'varian_produks.harga AS harga_varian'
+                                        )
+                                        ->get();
+                    $item->detail_transaksi = $getDetailTransaksi;
+                };
+        }
+
+       
+        
+        // $getDetail = DB::table('detail_transaksis')->groupBy('id');
+        // $transaksiLaporan = DB::table($getDetail, 'dt')->get();
+        // dd($transaksiLaporan);
+        return view('transaksi.transaksi-report', compact('transaksiLaporan'));
+    }
+    public function requestStatusTransaksiByMonth(Request $req){
+        
+
+        $idPengusaha = session()->get('id');
+
+        $totalByStatusTransaksi =   DB::table('transaksi')
+                                    ->leftJoin('status','transaksi.id_status', 'status.id')
+                                    ->where('transaksi.tgl','LIKE',$req->month."%")
+                                    ->where('transaksi.id_pengusaha', $idPengusaha)
+                                    ->whereNull('transaksi.deleted_at')
+                                    // ->where('transaksi.created_at', 'LIKE 2020-04%')
+                                    ->select('status.nama', DB::raw('count(status.nama) as total_status'))
+                                    ->groupBy('transaksi.id_status')
+                                    ->get();
+        
+        
+        return response()->json(['success' => true, 'data' => $totalByStatusTransaksi]);
+        
+    }
 }

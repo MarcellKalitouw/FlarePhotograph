@@ -72,31 +72,46 @@
                         <div class="down-content">
                           <a href="#"><h4>Your Profile</h4></a>
                           {{-- <h6>$18.25</h6> --}}
-                          <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                              <label for="">Nama</label>
-                              <fieldset>
-                                <input name="name" type="text" value="{{ $getUser->nama }}" class="form-control" id="name" placeholder="Nama Pemesan" required="">
-                              </fieldset>
+                          <form action="{{ route('update.profile', $getUser->id) }}" method="POST" >
+                            @csrf
+                            <div class="row">
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <label for="">Nama</label>
+                                <fieldset>
+                                  <input name="nama" type="text" value="{{ $getUser->nama }}" class="form-control" id="name" placeholder="Nama Pemesan" required="">
+                                </fieldset>
+                              </div>
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <label for="">Email</label>
+                                <fieldset>
+                                  <input name="email" type="text" class="form-control" value="{{ $getUser->email }}" id="email" placeholder="Alamat Email" required="">
+                                </fieldset>
+                              </div>
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <label for="">Nomor Telepon</label>
+                                <fieldset>
+                                  <input name="no_hp" type="text" class="form-control"  value="{{ $getUser->no_hp }}"  id="subject" placeholder="Nomor Telepon" required="">
+                                </fieldset>
+                              </div>
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <label for="">Alamat</label>
+                                <fieldset>
+                                  <input name="alamat" type="text" class="form-control"  value="{{ $getUser->alamat }}"  id="subject" placeholder="Nomor Telepon" required="">
+                                </fieldset>
+                              </div>
+                              <div class="col-lg-12 col-md-12 col-sm-12">
+                                <label for="">Password</label>
+                                <fieldset>
+                                  <input name="password" type="text" class="form-control" value="" id="password" placeholder="Kata Sandi..." >
+                                </fieldset>
+                              </div>
+                              <div class="col-lg-12 contact-form" style="margin-top: 2%">
+                                <fieldset>
+                                  <button type="submit" id="form-submit" class="btn btn-warning">Update</button>
+                                </fieldset>
+                              </div>
                             </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                              <label for="">Email</label>
-                              <fieldset>
-                                <input name="email" type="text" class="form-control" value="{{ $getUser->email }}" id="email" placeholder="Alamat Email" required="">
-                              </fieldset>
-                            </div>
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                              <label for="">Nomor Telepon</label>
-                              <fieldset>
-                                <input name="no_hp" type="text" class="form-control"  value="{{ $getUser->no_hp }}"  id="subject" placeholder="Nomor Telepon" required="">
-                              </fieldset>
-                            </div>
-                            <div class="col-lg-12 contact-form" style="margin-top: 2%">
-                              <fieldset>
-                                <button type="submit" id="form-submit" class="btn btn-warning">Update</button>
-                              </fieldset>
-                            </div>
-                          </div>
+                          </form>
                           
                         </div>
                       </div>
