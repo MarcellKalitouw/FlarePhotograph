@@ -6,8 +6,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="text-content">
-              <h4>new arrivals</h4>
-              <h2>sixteen products</h2>
+            {{--<h4>new arrivals</h4>--}}
+              <h2>flare products</h2>
             </div>
           </div>
         </div>
@@ -85,9 +85,8 @@
       <div class="row">
           <div class="col-md-12">
           <div class="inner-content">
-              <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
-          
-          - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
+              <p>Copyright &copy; 2022 Flare Photography
+          </p>
           </div>
           </div>
       </div>
