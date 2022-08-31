@@ -121,7 +121,7 @@
                                                     //                 </button>';
                                                     //         break;
                                                     // }
-                                                    if($grt->status == 'Diterima' || $grt->status == 'Ditolak' ){
+                                                    if($grt->status == 'Diterima' || $grt->status == 'Ditolak'  ){
                                                         $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" disabled> 
                                                                         Diterima
                                                                     </button>';
@@ -155,16 +155,31 @@
                                                  @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Diproses' || $grt->status == 'Ditolak'){
+                                                        // if ($grt->status == 'Diterima') {
+                                                        //     # code...
+                                                        //     $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" > 
+                                                        //                         Diproses
+                                                        //                     </button>';
+                                                        //     break;
+                                                        // }
+                                                        if($grt->status == 'Menunggu Konfirmasi'){
                                                             $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" disabled> 
                                                                                 Diproses
                                                                             </button>';
-                                                            break;
+                                                            
                                                         }else{
-                                                            $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" > 
+                                                            if($grt->status == 'Diproses' || $grt->status == 'Ditolak'  ){
+                                                            $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" disabled> 
                                                                                 Diproses
                                                                             </button>';
+                                                                break;
+                                                            }else{
+                                                                $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" > 
+                                                                                    Diproses
+                                                                                </button>';
+                                                            }
                                                         }
+                                                        
                                                         
 
                                                     }
@@ -174,32 +189,45 @@
                                                 
                                             </a>
                                         </li>
-                                        <li>
-                                            <a class="js-sweetalert">
-                                                <?php $menunggupembayaran='Menunggu Pembayaran Pertama'?>
-                                                @php
-                                                    foreach ($getRiwayatTransaksi as $grt ) {
-                                                        // dd($grt);
-                                                        if($grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Ditolak'){
-                                                            $btnMenungguPembayaran = '<button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" disabled> 
-                                                                                Menunggu Pembayaran
-                                                                            </button>';
-                                                            break;
+                                        <?php $menunggupembayaran='Menunggu Pembayaran Pertama'?>
+                                        @if ($getTransaksi->bentuk_pembayaran == 'dp')
+                                            <li>
+                                                <a class="js-sweetalert">
+                                                    @php
+                                                        foreach ($getRiwayatTransaksi as $grt ) {
+                                                            // dd($grt);
 
-                                                        }else{
-                                                            $btnMenungguPembayaran = '<button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" > 
-                                                                                Menunggu Pembayaran
-                                                                            </button>';
+                                                            if($grt->status == 'Menunggu Konfirmasi'){
+                                                                $btnMenungguPembayaran = '<button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" disabled> 
+                                                                                        Menunggu Pembayaran
+                                                                                    </button>';
+                                                            }else{
+                                                                if($grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Ditolak' )
+                                                                {
+                                                                    $btnMenungguPembayaran = '<button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" disabled> 
+                                                                                        Menunggu Pembayaran
+                                                                                    </button>';
+                                                                    break;
+
+                                                                }else{
+                                                                    $btnMenungguPembayaran = '<button class="btn btn-primary waves-effect " data-type="MenungguPembayaran" > 
+                                                                                        Menunggu Pembayaran
+                                                                                    </button>';
+                                                                }
+                                                            }
+
+                                                            
+                                                            
+
                                                         }
-                                                        
-
-                                                    }
-                                                @endphp
-                                                {!! $btnMenungguPembayaran !!}
-                                                
-                                                
-                                            </a>
-                                        </li>
+                                                    @endphp
+                                                    {!! $btnMenungguPembayaran !!}
+                                                    
+                                                    
+                                                </a>
+                                            </li>
+                                        @endif
+                                        
                                         <li>
                                             <a class="js-sweetalert">
                                                 <?php $menunggupelunasan='Menunggu Pelunasan'?>
@@ -207,17 +235,24 @@
                                                 @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Menunggu Pelunasan' || $grt->status == 'Ditolak'){
+                                                        if($grt->status == 'Menunggu Konfirmasi'){
                                                             $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
-                                                                            Menunggu Pelunasan
-                                                                        </button>';
-                                                            break;
-
+                                                                                Menunggu Pelunasan
+                                                                            </button>';
                                                         }else{
-                                                            $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" > 
-                                                                    Menunggu Pelunasan
-                                                                </button>';
+                                                            if($grt->status == 'Menunggu Pelunasan' || $grt->status == 'Ditolak' ){
+                                                                $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
+                                                                                Menunggu Pelunasan
+                                                                            </button>';
+                                                                break;
+
+                                                            }else{
+                                                                $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" > 
+                                                                        Menunggu Pelunasan
+                                                                    </button>';
+                                                            }
                                                         }
+                                                        
                                                         
 
                                                     }
@@ -234,17 +269,24 @@
                                                 @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Selesai' || $grt->status == 'Ditolak'){
+                                                        if($grt->status == 'Menunggu Konfirmasi'){
                                                             $btnSelesai = '<button class="btn btn-primary waves-effect " data-type="Selesai" disabled > 
-                                                                            Selesai
-                                                                        </button>';
-                                                            break;
-
+                                                                                Selesai
+                                                                            </button>';
                                                         }else{
-                                                            $btnSelesai = '<button class="btn btn-primary waves-effect " data-type="Selesai" > 
-                                                                            Selesai
-                                                                        </button>';
+                                                            if($grt->status == 'Selesai' || $grt->status == 'Ditolak'){
+                                                                $btnSelesai = '<button class="btn btn-primary waves-effect " data-type="Selesai" disabled > 
+                                                                                Selesai
+                                                                            </button>';
+                                                                break;
+
+                                                            }else{
+                                                                $btnSelesai = '<button class="btn btn-primary waves-effect " data-type="Selesai" > 
+                                                                                Selesai
+                                                                            </button>';
+                                                            }
                                                         }
+                                                        
                                                         
 
                                                     }

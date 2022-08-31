@@ -72,6 +72,9 @@ Route::middleware(['checkStatus'])->group(function () {
 });
 
 
+Route::get('transaksi_laporan/{bulan?}',[TransaksiController::class, 'transactionReport'])->name('transaksi.report');
+Route::get('transaksi_export/{bulan?}',[TransaksiController::class, 'ExportTransaction'])->name('transaksi.export');
+
 // Start middle Universe
 Route::resource('users', UsersController::class);
 
@@ -113,6 +116,7 @@ Route::middleware(['isPengguna'])->group(function () {
     Route::get('users-cart/', [HomeController::class, 'showCart'])->name('users-view.cart');
     Route::post('insertUserCart/{id}', [HomeController::class, 'insertCart'])->name('users-view.insert-cart');
     
+    Route::post('update-profile-pelanggan/{id}', [HomeController::class, 'updateProfilePelanggan'])->name('update.profile');
 
     //Transaction
     Route::get('transaction-order', [HomeController::class, 'transactionOrder'])->name('users-view.transaction');

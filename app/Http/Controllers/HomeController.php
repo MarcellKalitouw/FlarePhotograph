@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\KategoriProduk;
 use App\Models\LokasiTersedia;
 use App\Models\Transaksi;
-use App\Models\{User, DetailTransaksi, RiwayatTransaksi, RiwayatPembayaran, Notifikasi, BankTransfer};
+use App\Models\{ProfileUsaha, User, DetailTransaksi, RiwayatTransaksi, RiwayatPembayaran, Notifikasi, BankTransfer};
 use DB;
 class HomeController extends Controller
 {
@@ -16,10 +16,12 @@ class HomeController extends Controller
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
         $kp = KategoriProduk::all();
+        $pf = ProfileUsaha::first();
+        // dd($pf);
         $this->getGambarByKategoriProduk($kp);
 
         // dd($kp);
-        return view('users-view.dashboard', compact('kp'));
+        return view('users-view.dashboard', compact('kp','pf'));
     }
 
     
@@ -444,9 +446,10 @@ class HomeController extends Controller
         return response()->json($message, 200);
     }
     public function historyTransaction(){
-        $email = session()->get('email');
-        $getUser = DB::table('users')->where('email', $email)->first(); 
-
+        // dd(session()->all());
+        $id = session()->get('id_user');
+        $getUser = DB::table('users')->where('id', $id)->first(); 
+        // dd($getUser);
         //Get History Transaction
         $allTransaksi = Transaksi::where('id_user', session()->get('id_user'))->orderByDesc('id')->get();
         
@@ -553,6 +556,39 @@ class HomeController extends Controller
         return redirect()->route('users-view.history-transaction')->with('success','Your Payment Confirmation <strong> "'.$input['kode_transaksi'].'" </strong> has been saved!!');
 
 
+    }
+    public function validationProfile($data){
+        // dd($data);
+        $data->validate([
+            'nama' => 'required',
+            'email' => 'required',
+            'no_hp' => 'required',
+            'alamat' => 'required',
+        ]);
+    }
+    public function updateProfilePelanggan(Request $request, $id)
+    {
+        // dd($request);
+        $validation = $this->validationProfile($request);
+        // dd($validation);
+        $oldData = User::find($id);
+        $input = $request->except(['_token', '_method']);
+        
+        if($oldData){
+            if($input['password'] != null){
+                $input['password'] = bcrypt($input['password']);
+            }
+            else{
+                $input['password'] = $oldData->password;
+            }
+        }
+        $profile = User::find($id)->update($input);
+        
+
+        // dd($profile);
+        return redirect()->route('users-view.history-transaction')->with('success','Anda berhasil memperbaharui profil anda');
+
+        // return redirect()->route('logout')->with('success','Anda berhasil memperbaharui profil anda');
     }
 
     public function create()

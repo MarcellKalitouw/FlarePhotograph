@@ -77,7 +77,9 @@
                             <li>
                                <a href="{{route('transaksi.index')}}">Daftar Transaksi</a>
                             </li>
-                            
+                            <li>
+                               <a href="{{route('transaksi.report')}}">Laporan Transaksi</a>
+                            </li>
 
                             {{-- <li>
                                 <a href="{{route('detail_transaksi.index')}}">Detail Transaksi</a>
@@ -91,6 +93,7 @@
                              <li>
                                <a href="{{route('lokasi_tersedia.index')}}">Lokasi yang tersedia</a>
                             </li>
+                            
                             
                         </ul>
                     </li>
