@@ -482,8 +482,8 @@ class HomeController extends Controller
                         $item->total_pelunasan = $item->total_transaksi - $item->total_dp1;
                         // dd('test');
                     }else{
-                        $item->total_pelunasan = $item->total_transaksi;
-                        $item->total_dp1 = $item->total_transaksi / 2;
+                        $item->total_pelunasan = 0;
+                        $item->total_dp1 =  $item->total_transaksi / 2;
                     }    
                 }
                 
