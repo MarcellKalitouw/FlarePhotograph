@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use App\Models\Notifikasi;
+use Illuminate\Http\Request;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,8 +28,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $notif = Notifikasi::where('from', 'Pelanggan')->where('status_notifikasi', 'Baru')->get();
-
+        $request = request()->segment(1);
         View::share('notif', $notif);
+        View::share('request',$request);
 
         // dd($notif);
         Schema::defaultStringLength(191);

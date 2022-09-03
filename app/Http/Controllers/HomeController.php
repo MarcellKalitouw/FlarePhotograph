@@ -161,14 +161,14 @@ class HomeController extends Controller
 
         $cekVarian = DB::table('varian_produks')->where('id_produk', $id)->get();
         // dd(count($cekVarian) != 0);
-        if(count($cekVarian) != 0){
-            $validateCekVarian = $this->validate($r, [
-                'id_varian' => 'required'
-            ],
-            [
-                'id_varian.required' => 'Pilih Varian Produk terlebih dahulu'
-            ]);
-        }
+        // if(count($cekVarian) != 0){
+        //     $validateCekVarian = $this->validate($r, [
+        //         'id_varian' => 'required'
+        //     ],
+        //     [
+        //         'id_varian.required' => 'Pilih Varian Produk terlebih dahulu'
+        //     ]);
+        // }
 
         // dd(count($cekWarna));
         

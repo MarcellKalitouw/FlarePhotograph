@@ -8,7 +8,7 @@
            <div class="header">
                <h2>
                    TABEL LAPORAN TRANSAKSI
-                   <a  href="{{route('transaksi.create')}}" class="btn btn-success waves-effect">Tambah Data</a >
+                   {{-- <a  href="{{route('transaksi.create')}}" class="btn btn-success waves-effect">Tambah Data</a > --}}
                </h2>
                <div class="panel-group m-t-15" id="accordion_11" role="tablist" aria-multiselectable="false">
                     <div class="panel panel-col-teal">
@@ -71,6 +71,7 @@
                                <th>Biaya Tambahan</th>
                                <th>Total Harga</th>
                                <th>Keterangan Pembayaran</th>
+                               <th>Status Transaksi</th>
                                <th>Created at</th>
                                {{-- <th>Deleted at</th> --}}
                                
@@ -85,6 +86,7 @@
                             <th>Biaya Tambahan</th>
                             <th>Total Harga</th>
                             <th>Keterangan Pembayaran</th>
+                            <th>Status Transaksi</th>
                             <th>Created at</th>
                                 {{-- <th>Deleted at</th> --}}
                                
@@ -123,6 +125,7 @@
                                <td>Rp.{{number_format($item->biaya_tambahan, 0)}}</td>
                                <td>Rp.{{number_format($item->total_transaksi, 0)}}</td>
                                <td>{{$item->bentuk_pembayaran}}</td>
+                               <td>{{$item->status_transaksi}}</td>
                                <td>{{$item->created_at}}</td>
                                {{-- <td>{{$item->updated_at}}</td>
                                <td>{{$item->deleted_at}}</td> --}}

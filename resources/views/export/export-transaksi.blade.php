@@ -1,13 +1,14 @@
                     <table>
                        <thead>
                            <tr>
-                               <th style="5%" >Nomor</th>
+                               <th style="5%" >No</th>
                                <th style="10%">Nama Pemesan</th>
                                <th style="15%">Tanggal Kegiatan</th>
                                <th style="15%">Nama Event (Produk)</th>
                                <th style="10%">Biaya Tambahan</th>
                                <th style="10%">Total Harga</th>
                                <th style="10%">Keterangan Pembayaran</th>
+                               <th style="10%">Status Transaksi</th>
                                <th style="15%">Created at</th>
                                {{-- <th>Deleted at</th> --}}
                                
@@ -47,6 +48,7 @@
                                <td>Rp.{{number_format($item->biaya_tambahan, 0)}}</td>
                                <td>Rp.{{number_format($item->total_transaksi, 0)}}</td>
                                <td>{{$item->bentuk_pembayaran}}</td>
+                               <td>{{$item->status_transaksi}}</td>
                                <td>{{$item->created_at}}</td>
                                {{-- <td>{{$item->updated_at}}</td>
                                <td>{{$item->deleted_at}}</td> --}}
