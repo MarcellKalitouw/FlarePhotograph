@@ -67,7 +67,7 @@
                             <div>
                                 <ul class="nav nav-tabs" role="tablist">
                                     <li role="presentation"><a href="#profile_settings" aria-controls="settings" role="tab" data-toggle="tab">Profile Settings</a></li>
-                                    <li role="presentation"><a href="#atur_lokasi" aria-controls="settings" role="tab" data-toggle="tab">Atur Lokasi</a></li>
+                                    {{-- <li role="presentation"><a href="#atur_lokasi" aria-controls="settings" role="tab" data-toggle="tab">Atur Lokasi</a></li> --}}
                                     <li role="presentation"><a href="#bank_transfer" aria-controls="settings" role="tab" data-toggle="tab">Bank Transfer</a></li>
                                 </ul>
 

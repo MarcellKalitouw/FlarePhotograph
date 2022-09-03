@@ -94,11 +94,12 @@ class TransaksiController extends Controller
                                 ->leftJoin('transaksis', 'transaksis.id', 'riwayat_transaksis.id_transaksi')
                                 ->leftJoin('users', 'users.id', 'riwayat_transaksis.id_user')
                                 ->where('id_transaksi', $id)
-                                ->select('riwayat_transaksis.*','transaksis.kode_transaksi AS kode_transaksi','users.nama AS nama_user')
+                                ->select('riwayat_transaksis.*','transaksis.kode_transaksi AS kode_transaksi','users.nama AS nama_user', 'transaksis.bentuk_pembayaran AS bentuk_pembayaran')
                                 ->get();
+
         // dd($getTransaksi);
         // dd($getDetailTransactionWithProduk);
-        // dd($getRiwayatTransaksi, $getRiwayatPembayaran);
+        // dd($getRiwayatTransaksi, $getRiwayatPembayaran); 
 
         return view('transaksi.detail', compact('getRiwayatPembayaran','getRiwayatTransaksi','getDetailTransactionWithProduk', 'getTransaksi'));
     }

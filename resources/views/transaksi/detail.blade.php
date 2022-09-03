@@ -168,7 +168,7 @@
                                                                             </button>';
                                                             
                                                         }else{
-                                                            if($grt->status == 'Diproses' || $grt->status == 'Ditolak'  ){
+                                                            if($grt->status == 'Diproses' || $grt->status == 'Ditolak' || $grt->status == 'Menunggu Pelunasan' || $grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Selesai' ){
                                                             $btnDiproses = '<button class="btn btn-primary waves-effect " data-type="Diproses" disabled> 
                                                                                 Diproses
                                                                             </button>';
@@ -235,11 +235,47 @@
                                                 @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Menunggu Konfirmasi'){
-                                                            $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
+                                                        if($grt->status == 'Menunggu Konfirmasi' || $grt->status == 'Diterima' || $grt->status == 'Diproses'){
+                                                            if ($grt->bentuk_pembayaran == 'dp') {
+                                                                $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
+                                                                                Menunggu Pelunasan
+                                                                            </button>';    # code...
+                                                            }else{
+                                                                $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" > 
                                                                                 Menunggu Pelunasan
                                                                             </button>';
-                                                        }else{
+                                                            }
+                                                            
+                                                                            
+                                                        }
+                                                        else{
+                                                            // if($grt->bentuk_pembayaran == 'dp' ){
+                                                                
+                                                            //     if($grt->status == 'Menunggu Pelunasan' || $grt->status == 'Ditolak' || $grt->status == 'Diterima' && $grt->status == 'Menunggu Pembayaran Pertama'  ){
+                                                                    
+                                                            //             $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
+                                                            //                             Menunggu Pelunasan 456
+                                                            //                         </button>';
+                                                            //             break;
+                                                                    
+
+                                                            //     }else{
+
+                                                            //         if($grt->status == 'Diterima'){
+                                                            //             $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " disabled data-type="MenungguPelunasan" > 
+                                                            //                             Menunggu Pelunasan 123
+                                                            //                         </button>';
+                                                            //             break;
+                                                            //         }
+                                                            //         else{
+                                                            //             $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" > 
+                                                            //                 Menunggu Pelunasan
+                                                            //             </button>';
+                                                            //         }
+                                                            //     }
+                                                                
+                                                            // }
+
                                                             if($grt->status == 'Menunggu Pelunasan' || $grt->status == 'Ditolak' ){
                                                                 $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
                                                                                 Menunggu Pelunasan
@@ -274,7 +310,7 @@
                                                                                 Selesai
                                                                             </button>';
                                                         }else{
-                                                            if($grt->status == 'Selesai' || $grt->status == 'Ditolak'){
+                                                            if($grt->status == 'Selesai' || $grt->status == 'Ditolak' ){
                                                                 $btnSelesai = '<button class="btn btn-primary waves-effect " data-type="Selesai" disabled > 
                                                                                 Selesai
                                                                             </button>';
@@ -302,7 +338,7 @@
                                                 @php
                                                     foreach ($getRiwayatTransaksi as $grt ) {
                                                         // dd($grt);
-                                                        if($grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Menunggu Pelunasan'){
+                                                        if($grt->status == 'Menunggu Pembayaran Pertama' || $grt->status == 'Menunggu Pelunasan' || $grt->status == 'Diterima'){
                                                             $btnDitolak = '<button class="btn btn-primary waves-effect " data-type="Ditolak" disabled> 
                                                                                 Ditolak
                                                                             </button>';
