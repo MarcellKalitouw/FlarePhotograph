@@ -8,7 +8,7 @@
            <div class="header">
                <h2>
                    TABEL TRANSAKSI
-                   <a  href="{{route('transaksi.create')}}" class="btn btn-success waves-effect">Tambah Data</a >
+                   {{-- <a  href="{{route('transaksi.create')}}" class="btn btn-success waves-effect">Tambah Data</a > --}}
                </h2>
            </div>
            <div class="body">

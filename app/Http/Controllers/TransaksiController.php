@@ -64,6 +64,10 @@ class TransaksiController extends Controller
     public function show($id)
     {
         // dd($id);
+        /* 
+            Mengambil data dari tabel detail_transaksis berdasarkan id transaksi yang tertaut kebeberapa tabel sekaligus
+            diantara lain tabel produks, varian_produks, gambar_produks, warnas
+        */
         $getDetailTransactionWithProduk = DB::table('detail_transaksis')
                                             ->leftJoin('produks', 'produks.id', 'detail_transaksis.id_produk')
                                             ->leftJoin('varian_produks', 'varian_produks.id', 'detail_transaksis.id_varian')
@@ -77,10 +81,12 @@ class TransaksiController extends Controller
                                                     )
                                             ->get();
                                             // ->dd();
+        //Mengambil data gambar produk berdasarkan id produk yang terdaftar / yang berasal dari tabel detail_transaksis
         $this->getGambarProdukById($getDetailTransactionWithProduk);
+        //Mengambil data warna produk dari tabel warnas berdasarkan id warna yang terdaftar / yang berasal dari tabel detail_transaksis
         $this->getWarnaProductOrder($getDetailTransactionWithProduk);
         
-
+        //Mengambil data transaksi berdasarkan id transaksi
         $getTransaksi = DB::table('transaksis')
                         ->leftjoin('users','users.id','transaksis.id_user')
                         ->select('transaksis.*', 'users.nama AS nama_user')
@@ -88,8 +94,9 @@ class TransaksiController extends Controller
                         ->where('transaksis.id', $id)
                         ->first();
 
-
+        //Mengambil data riwayat pembayaran berdasarkan id transaksi
         $getRiwayatPembayaran = DB::table('riwayat_pembayarans')->where('id_transaksi',$id)->get();
+        //Mengambil data riwayat transaksi berdasarkan id transaksi
         $getRiwayatTransaksi = DB::table('riwayat_transaksis')
                                 ->leftJoin('transaksis', 'transaksis.id', 'riwayat_transaksis.id_transaksi')
                                 ->leftJoin('users', 'users.id', 'riwayat_transaksis.id_user')
@@ -123,14 +130,16 @@ class TransaksiController extends Controller
             $updateRiwayatTransaksi = RiwayatTransaksi::create(['id_transaksi'=>$id,'id_user'=> $transaksi->id_user,'status'=> $status]);
 
             $getTransaksi = Transaksi::find($id);
-            $this->getAllRiwayatTransaksi($getTransaksi, $getTransaksi->id_user);
-            $this->getDetailHistoryTransaction($getTransaksi);
+            //Mengambil semua data riwayat transaksi berdasarkan id transaksi dan id pengguna
+            // $this->getAllRiwayatTransaksi($getTransaksi, $getTransaksi->id_user);
+            //
+            // $this->getDetailHistoryTransaction($getTransaksi);
             // dd($getTransaksi);
 
             $getEmail = User::where('id', $getTransaksi->id_user)->first(['id','nama','email']);
 
 
-            // \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
+            \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
             
             
             DB::commit();

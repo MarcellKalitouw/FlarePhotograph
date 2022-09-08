@@ -50,6 +50,7 @@ class HomeController extends Controller
         // dd('test');
         $produk = DB::table('produks')
                 ->leftJoin('kategori_produks', 'produks.id_kategori', 'kategori_produks.id')
+                ->where('produks.status','!=','tidak_tersedia')
                 ->whereNull('produks.deleted_at')
                 ->select('produks.*', 'kategori_produks.nama_kategori AS kategori_produk')
                 ->orderBy('created_at','desc')
