@@ -30,9 +30,16 @@ class NotificationMail extends Mailable
      */
     public function build()
     {
-        return $this
-                ->subject('Coba aja dulu')
+        if($this->getTransaksi['status_transaksi'] == 'Diterima'){
+            return $this
+                ->subject('Invoice')
                 ->view('email.invoiceNotificationEmail');
+        }else{
+            return $this
+                    ->subject('Update Transaksi')
+                    ->view('email.updateTransactionEmail');
+        }
+        
                 // ->view('email.notificationEmail');
     }
 }

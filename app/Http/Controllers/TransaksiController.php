@@ -129,17 +129,21 @@ class TransaksiController extends Controller
             }
             $updateRiwayatTransaksi = RiwayatTransaksi::create(['id_transaksi'=>$id,'id_user'=> $transaksi->id_user,'status'=> $status]);
 
+            
+            //Data keperluan di email
             $getTransaksi = Transaksi::find($id);
             //Mengambil semua data riwayat transaksi berdasarkan id transaksi dan id pengguna
-            // $this->getAllRiwayatTransaksi($getTransaksi, $getTransaksi->id_user);
-            //
-            // $this->getDetailHistoryTransaction($getTransaksi);
+            $this->getAllRiwayatTransaksi($getTransaksi, $getTransaksi->id_user);
+            
+            $this->getDetailHistoryTransaction($getTransaksi);
             // dd($getTransaksi);
 
             $getEmail = User::where('id', $getTransaksi->id_user)->first(['id','nama','email']);
 
 
             \Mail::to($getEmail->email)->send(new \App\Mail\NotificationMail($getTransaksi));
+           
+            
             
             
             DB::commit();

@@ -130,6 +130,7 @@
                                                         $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" > 
                                                                         Diterima
                                                                     </button>';
+                                                        
                                                     }
                                                     // while ($grt->status == 'Diterima' ) {
                                                     //     $btnDiterima = '<button class="btn btn-primary waves-effect " data-type="Diterima" disabled> 
@@ -241,9 +242,16 @@
                                                                                 Menunggu Pelunasan
                                                                             </button>';    # code...
                                                             }else{
-                                                                $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" > 
+                                                                if ($grt->status == 'Menunggu Konfirmasi' || $grt->status == 'Diproses' || $grt->status == 'Ditolak') {
+                                                                    $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" disabled> 
                                                                                 Menunggu Pelunasan
                                                                             </button>';
+                                                                }else {
+                                                                    $btnMenungguPelunasan = '<button class="btn btn-primary waves-effect " data-type="MenungguPelunasan" > 
+                                                                                Menunggu Pelunasan
+                                                                            </button>';
+                                                                }
+                                                                
                                                             }
                                                             
                                                                             
