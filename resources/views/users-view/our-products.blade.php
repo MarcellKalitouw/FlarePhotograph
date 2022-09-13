@@ -40,7 +40,7 @@
                         <div class="col-lg-4 col-md-4 all {{ $item->kategori_produk }}">
                             <div class="product-item">
                                 <a href="{{ route('users-view.detailproduct', $item->id) }}">
-                                  <img src="{{asset ('storage/'.$item->gambar_produk) }}" style="max-height: 200px;object-fit:contain" alt=""></a>
+                                  <img src="{{asset ('storage/'.$item->gambar_produk) }}" style="height: 200px;object-fit:contain" alt=""></a>
                                 <div class="down-content">
                                   <a href="{{ route('users-view.detailproduct', $item->id) }}"><h4>{{ $item->nama_produk }}</h4></a>
                                   

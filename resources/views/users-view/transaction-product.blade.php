@@ -144,7 +144,7 @@
           
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>Data Pengiriman</h2>
+              <h2>Data Transaksi</h2>
             </div>
             <div id="message-body">
             </div>

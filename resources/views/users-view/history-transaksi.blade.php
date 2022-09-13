@@ -360,10 +360,13 @@
                                                         <label for="kode_transaksi" class="col-form-label">Kode Transaksi:</label>
                                                         <input readonly type="text" class="form-control" name="kode_transaksi" id="kode_transaksi"  value="{{ $item->kode_transaksi }}">
                                                       </div>
-                                                      <div class="form-group">
-                                                        <label for="total_bayar" class="col-form-label">Total Bayar:</label>
-                                                        <input readonly type="text" class="form-control"  id="total_bayar"  value="{{ number_format($item->total_dp1) }}">
-                                                      </div>
+                                                      @if ($item->bentuk_pembayaran == 'dp')
+                                                        <div class="form-group">
+                                                          <label for="total_bayar" class="col-form-label">Total Bayar:</label>
+                                                          <input readonly type="text" class="form-control"  id="total_bayar"  value="{{ number_format($item->total_dp1) }}">
+                                                        </div> 
+                                                      @endif
+                                                      
                                                       <div class="form-group">
                                                         <label for="total_lunas" class="col-form-label">Total yang masih perlu dilunasi:</label>
                                                         <input readonly type="text" class="form-control"  id="total_lunas"  value="{{ number_format($item->total_pelunasan) }}">

@@ -27,8 +27,7 @@ class ProdukController extends Controller
     }
     public function index()
     {
-        // $this->cekUser();
-        // $this->LoginController->validate_users();
+        
         $data = DB::table('produks')
                 ->leftJoin('kategori_produks', 'produks.id_kategori', 'kategori_produks.id')
                 ->whereNull('produks.deleted_at')
@@ -38,7 +37,6 @@ class ProdukController extends Controller
         // $data = Produk::all();
         $this->getGambarProdukById($data);
 
-        // dd($data);
         
         return view('produk.index', compact('data'));
     }
@@ -62,7 +60,8 @@ class ProdukController extends Controller
     
     public function store(Request $request)
     {
-        //  dd($request);
+        
+        //Validasi Inputan dari form yang dikirim dari form yang telah di isi admin
          $validate = $this->validate($request, [
             'nama_produk' => 'required',
             'id_kategori' => 'required',
@@ -75,10 +74,10 @@ class ProdukController extends Controller
             'gambar.*' => 'image|mimes:jpeg,png,jpg'
         ]);
 
-        //dd($validate);
-
+        //Data gambar dipisah, karena disimpan ditabel yang berbeda
         $input = $request->except(['_token', 'gambar']);
-        // dd($input);
+
+        //Data produk disimpan
         $produk = Produk::create($input);
         $gambarProduk = [];
 
@@ -90,6 +89,7 @@ class ProdukController extends Controller
             ];
         }
         // dd($gambarProduk);
+        //Kumpulan gambar produk disimpan ke tabel gambar_produk
         $inputGambar = GambarProduk::insert($gambarProduk);
         
         
