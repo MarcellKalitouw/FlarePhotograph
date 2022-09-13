@@ -379,13 +379,13 @@
 
                                                             <div
                                                                 style="font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:300;line-height:1;text-align:center;color:#575757;">
-                                                                Some Firm Ltd, 35 Avenue. City 10115, USA
+                                                                Tataaran Dua, Tondano Selatan, Minahasa Regency, North Sulawesi
                                                             </div>
 
                                                         </td>
                                                     </tr>
 
-                                                    <tr>
+                                                    {{-- <tr>
                                                         <td align="center"
                                                             style="font-size:0px;padding:10;word-break:break-word;">
 
@@ -396,7 +396,7 @@
                                                             </div>
 
                                                         </td>
-                                                    </tr>
+                                                    </tr> --}}
 
                                                 </table>
 

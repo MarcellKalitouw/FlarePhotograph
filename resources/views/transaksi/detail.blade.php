@@ -407,7 +407,7 @@
                                                     <td>{{ $item->status }}</td>
                                                     <td>Rp. {{ number_format($item->total_bayar) }}</td>
                                                     <td>Rp. {{ number_format($item->total_lunas) }}</td>
-                                                    <td>{{ $item->transfer_di }}</td>
+                                                    <td>{{ $item->nama_bank }}</td>
                                                     <td>{{ $item->atasnama_pengirim }}</td>
                                                     <td>{{ $item->bank_pengirim }}</td>
                                                     <td>{{ $item->tgl_transfer }}</td>

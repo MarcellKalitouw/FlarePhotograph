@@ -95,7 +95,12 @@ class TransaksiController extends Controller
                         ->first();
 
         //Mengambil data riwayat pembayaran berdasarkan id transaksi
-        $getRiwayatPembayaran = DB::table('riwayat_pembayarans')->where('id_transaksi',$id)->get();
+        $getRiwayatPembayaran = DB::table('riwayat_pembayarans')
+                                ->leftjoin('bank_transfers', 'bank_transfers.id','riwayat_pembayarans.transfer_di')
+                                ->where('riwayat_pembayarans.id_transaksi',$id)
+                                ->select('riwayat_pembayarans.*','bank_transfers.nama_bank as nama_bank')
+                                ->get();
+        // dd($getRiwayatPembayaran);
         //Mengambil data riwayat transaksi berdasarkan id transaksi
         $getRiwayatTransaksi = DB::table('riwayat_transaksis')
                                 ->leftJoin('transaksis', 'transaksis.id', 'riwayat_transaksis.id_transaksi')
