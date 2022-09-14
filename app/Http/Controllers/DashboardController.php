@@ -47,6 +47,7 @@ class DashboardController extends Controller
         $getByMonth = DB::table('transaksis')
                       ->where('status_transaksi', 'Selesai')
                       ->where('created_at','LIKE',$year."%")
+                      ->whereNull('deleted_at')
                       ->selectRaw("YEAR(created_at) as Year, MONTH(created_at) as month, count(id) as value")
                       ->groupByRaw($groupByMonth)
                       ->get();
