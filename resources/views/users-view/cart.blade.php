@@ -176,7 +176,7 @@
             @if (count($getOrderProduct) > 0)
               <div class="col-lg-12 contact-form" style="display: flex;align-items:center;justify-content:end">
               
-                  <a href="{{ route('users-view.transaction') }}" id="form-submit" class="filled-button">Make Transaction</a>
+                  <a href="{{ route('users-view.transaction') }}" id="form-submit" class="filled-button">Lanjut Bayar</a>
                 
               </div>
               

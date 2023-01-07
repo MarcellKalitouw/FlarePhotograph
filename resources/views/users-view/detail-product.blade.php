@@ -152,7 +152,7 @@
                 <input type="hidden" name="heksa_warna" id="heksa_warna" value="">
                 <input type="hidden" name="id_warna" id="id_warna" value="">
                 <input type="hidden" id="value_varian" name="id_varian" value="">
-                <button type="submit" class="order-now" style="cursor: pointer">Order Now</button>
+                <button type="submit" class="order-now" style="cursor: pointer">Pesan Sekarang</button>
                 {{-- <button type="button" onclick="makeOrderProduct({{ $produk->id }})" class="order-now" style="cursor: pointer">Order Now</button> --}}
               </form>
               

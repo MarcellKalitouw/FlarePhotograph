@@ -54,7 +54,7 @@
                             <i class="material-icons">lock</i>
                         </span>
                         <div class="form-line">
-                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            <input type="password" class="form-control" name="password" placeholder="Kata Sandi" required>
                         </div>
                     </div>
                     <div class="row" >
@@ -65,7 +65,7 @@
                                             -ms-transform: translate(-50%, -50%);
                                             transform: translate(-50%, -50%);"
                         >
-                            <button class="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                            <button class="btn btn-block bg-pink waves-effect" type="submit">MASUK</button>
                         </div>
                     </div>
                     

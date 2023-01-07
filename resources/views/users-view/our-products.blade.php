@@ -7,7 +7,7 @@
           <div class="col-md-12">
             <div class="text-content">
             {{--<h4>new arrivals</h4>--}}
-              <h2>flare products</h2>
+              <h2>PRODUK FLARE</h2>
             </div>
           </div>
         </div>
