@@ -54,7 +54,7 @@
           "brandSubTitle":"mohon bersabar menunggu respon admin",
           "brandImg":"https://cdn.clare.ai/wati/images/WATI_logo_square_2.png",
           "welcomeText":"Hi !\nAda yang bisa saya bantu?",
-          "messageText":"Hello, I have a question about FlarePhotograph. Can I ?",
+          "messageText":"Hallo, saya pertanyaan seputar Flare Photograph",
           "backgroundColor":"#ff4747",
           "ctaText":"Start Chat",
           "borderRadius":"25",
