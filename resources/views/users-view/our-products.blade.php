@@ -7,7 +7,7 @@
           <div class="col-md-12">
             <div class="text-content">
             {{--<h4>new arrivals</h4>--}}
-              <h2>flare products</h2>
+              <h2>Produk Flare </h2>
             </div>
           </div>
         </div>
@@ -21,7 +21,7 @@
           <div class="col-md-12">
             <div class="filters">
               <ul>
-                  <li class="active" data-filter="*">All Products</li>
+                  <li class="active" data-filter="*">Semua Produk</li>
                   @foreach ($kp as $item)
                     <li data-filter=".{{$item->nama_kategori}}">{{ $item->nama_kategori }}</li>
                       

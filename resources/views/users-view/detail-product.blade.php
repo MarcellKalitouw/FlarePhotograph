@@ -31,7 +31,7 @@
         <div class="row">
           <div class="col-md-12">
             <div class="text-content">
-              <h4>about us</h4>
+              <h4>Tentang Flare Photography</h4>
               <h2>our company</h2>
             </div>
           </div>
@@ -89,11 +89,11 @@
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
+                        <span class="sr-only">Sebelumnya</span>
                     </a>
                     <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
+                        <span class="sr-only">Selanjutnya</span>
                     </a>
                 </div>
               {{-- <img src="{{asset ('storage/'.$produk->gambar_produk[0]) }}" alt=""> --}}
@@ -107,16 +107,16 @@
               <p><b>Status : </b> {{ $produk->status }}</p>
               <p><b>Deskripsi : </b> {{ $produk->deskripsi }}</p>
               <div  style="display: flex;">
-                <p>Variant Produk : </p> 
+                <p>Pilihan Lain : </p> 
                 @if (count($getVariant) != 0)
                     <div class="varian-tersedia" style="margin-left: 2%">
                       <select name="id_varian" id="id_varian" class="form-control" onchange="handleChangeVariant()">
-                        <option value="">Pilih Variant Produk</option>
+                        <option value="">Pilihan Lainnya</option>
                       @forelse ($getVariant as $item)
                           <option value="{{ $item->id }}">{{ $item->nama_varian }} - Rp.{{ number_format($item->harga)  }}</option>
                         
                       @empty
-                        <option value="" selected disabled>Tidak ada variant</option>  
+                        <option value="" selected disabled>Tidak ada pilihan lain</option>  
                       @endforelse
                       </select>
                       
@@ -152,7 +152,7 @@
                 <input type="hidden" name="heksa_warna" id="heksa_warna" value="">
                 <input type="hidden" name="id_warna" id="id_warna" value="">
                 <input type="hidden" id="value_varian" name="id_varian" value="">
-                <button type="submit" class="order-now" style="cursor: pointer">Order Now</button>
+                <button type="submit" class="order-now" style="cursor: pointer">Pesan</button>
                 {{-- <button type="button" onclick="makeOrderProduct({{ $produk->id }})" class="order-now" style="cursor: pointer">Order Now</button> --}}
               </form>
               
@@ -311,7 +311,7 @@
       <div class="row">
           <div class="col-md-12">
           <div class="inner-content">
-              <p>Copyright &copy; 2020 Sixteen Clothing Co., Ltd.
+              <p>Copyright &copy; 2020 Flare Photography
           
           - Design: <a rel="nofollow noopener" href="https://templatemo.com" target="_blank">TemplateMo</a></p>
           </div>

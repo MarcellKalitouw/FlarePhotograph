@@ -7,19 +7,19 @@
         <div class="banner-item-01">
           <div class="text-content">
             <h4>Flare Photogrphy </h4>
-            <h2>New Arrivals On Sale</h2>
+            <h2>Dapatkan Harga Istimewa</h2>
           </div>
         </div>
         <div class="banner-item-02">
           <div class="text-content">
             <h4>flare photography</h4>
-            <h2>Get your best products</h2>
+            <h2>Pesan Sekarang </h2>
           </div>
         </div>
         <div class="banner-item-03">
           <div class="text-content">
             <h4>flare photography</h4>
-            <h2>Grab last minute deals</h2>
+            <h2>Harga Terjangkau</h2>
           </div>
         </div>
       </div>
@@ -31,8 +31,8 @@
         <div class="row">
           <div class="col-md-12">
             <div class="section-heading">
-              <h2>Kategori - kategori produk</h2>
-              <a href="{{ route('users-view.ourproduct') }}">Lihat semua produk <i class="fa fa-angle-right"></i></a>
+              <h2>Kategori Produk</h2>
+              <a href="{{ route('users-view.ourproduct') }}">Semua Produk <i class="fa fa-angle-right"></i></a>
             </div>
           </div>
           @foreach ($kp as $item)

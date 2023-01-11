@@ -5,15 +5,16 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                 <li class="nav-item {{ request()->segment(1) == 'landingPage' && request()->segment(2) == null ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('landingPage.index') }}">Home
+                    <a class="nav-link" href="{{ route('landingPage.index') }}">Beranda
                     <span class="sr-only">(current)</span>
                     </a>
                 </li> 
                 <li class="nav-item {{ request()->segment(1) == 'ourProduct' ? 'active' : ''  }}">
-                    <a class="nav-link" href="{{route ('users-view.ourproduct') }}">Our Products</a>
+                    <a class="nav-link" href="{{route ('users-view.ourproduct') }}">Produk </a>
                 </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="about.html">About Us</a>
@@ -28,8 +29,12 @@
                     <li class="nav-item">
                         <a href="{{ route('users-view.history-transaction') }}" class="nav-link {{ request()->segment(1) == 'historyTransaction' ? 'active' : ''  }}" style="display: flex;align-items:center;justify-content:space-between">
                             <i class="material-icons">account_circle</i>
-                         Profile</a>
+                         Profil</a>
                     </li>
+                    {{--<li class="nav-item">
+                        <a href="{{ route('users-view.history-transaction') }}" class="nav-link {{ request()->segment(1) == 'historyTransaction' ? 'active' : ''  }}" style="display: flex;align-items:center;justify-content:space-between">
+                            <i class="material-icons"></i>Omega</a>
+                    </li>--}}
                     <li class="nav-item {{ request()->segment(1) == 'users-cart' ? 'active' : ''  }}">
                         <a href="{{ route('users-view.cart') }}" class="nav-link" >
                             <i style="font-size: 18px;" class="material-icons">shopping_cart</i>
@@ -43,11 +48,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}">Logout</a>
+                        <a class="nav-link" href="{{ route('logout') }}">Keluar </a>
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login.index') }}">Login</a>
+                        <a class="nav-link" href="{{ route('login.index') }}">Masuk</a>
                     </li>
 
                 @endif
