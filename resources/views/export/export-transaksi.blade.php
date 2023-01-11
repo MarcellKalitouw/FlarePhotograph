@@ -1,4 +1,4 @@
-                    <table>
+                    <table style="border: 1px solid;">
                        <thead>
                            <tr>
                                <th style="5%" >No</th>

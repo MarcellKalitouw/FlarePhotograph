@@ -58,7 +58,7 @@
 
             <div class="filters">
               <ul>
-                  <li class="active" data-filter=".profile">Profile</li>
+                  <li class="active" data-filter=".profile">Profil</li>
                   <li data-filter=".history-transaksi">Riwayat Transaksi</li>
               </ul>
             </div>
@@ -70,7 +70,7 @@
                       <div class="product-item" >
                         <a href="#"><img src="assets/images/product_01.jpg" alt=""></a>
                         <div class="down-content">
-                          <a href="#"><h4>Your Profile</h4></a>
+                          <a href="#"><h4>Profil Anda</h4></a>
                           {{-- <h6>$18.25</h6> --}}
                           <form action="{{ route('update.profile', $getUser->id) }}" method="POST" >
                             @csrf
@@ -100,7 +100,7 @@
                                 </fieldset>
                               </div>
                               <div class="col-lg-12 col-md-12 col-sm-12">
-                                <label for="">Password</label>
+                                <label for="">Kata Sandi</label>
                                 <fieldset>
                                   <input name="password" type="text" class="form-control" value="" id="password" placeholder="Kata Sandi..." >
                                 </fieldset>
@@ -120,7 +120,7 @@
                       <div class="product-item" >
                         <a href="#"><img src="assets/images/product_02.jpg" alt=""></a>
                         <div class="" style="padding:0 30px">
-                          <h4>Your History Transaction</h4>
+                          <h4>Riwayat Transaksi Anda</h4>
                           <ul class="accordion" >
                             @if (count($allTransaksi) > 0)
                                 @php

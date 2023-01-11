@@ -7,7 +7,11 @@
           <div class="col-md-12">
             <div class="text-content">
             {{--<h4>new arrivals</h4>--}}
+<<<<<<< HEAD
               <h2>Produk Flare </h2>
+=======
+              <h2>PRODUK FLARE</h2>
+>>>>>>> c572a6db6fefbafb98dd257c4afff4b71fc95ef3
             </div>
           </div>
         </div>

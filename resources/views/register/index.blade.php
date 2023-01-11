@@ -92,7 +92,7 @@
                         <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>
                     </div> --}}
 
-                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
+                    <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">DAFTAR</button>
     
                     @if ($errors->any())
                         <div class="alert alert-danger">

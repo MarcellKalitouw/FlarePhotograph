@@ -14,7 +14,11 @@
                     </a>
                 </li> 
                 <li class="nav-item {{ request()->segment(1) == 'ourProduct' ? 'active' : ''  }}">
+<<<<<<< HEAD
                     <a class="nav-link" href="{{route ('users-view.ourproduct') }}">Produk </a>
+=======
+                    <a class="nav-link" href="{{route ('users-view.ourproduct') }}">Produk Kami</a>
+>>>>>>> c572a6db6fefbafb98dd257c4afff4b71fc95ef3
                 </li>
                 {{-- <li class="nav-item">
                     <a class="nav-link" href="about.html">About Us</a>
